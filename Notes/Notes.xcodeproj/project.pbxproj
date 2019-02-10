@@ -16,6 +16,7 @@
 		84F8A17E2210B45100C76C82 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A17D2210B45100C76C82 /* NoteViewController.swift */; };
 		84F8A1802210C1E700C76C82 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A17F2210C1E700C76C82 /* EditViewController.swift */; };
 		84F8A1822210C3B400C76C82 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A1812210C3B400C76C82 /* NewNoteViewController.swift */; };
+		84F8A1842210D0F600C76C82 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A1832210D0F600C76C82 /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		84F8A17D2210B45100C76C82 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		84F8A17F2210C1E700C76C82 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		84F8A1812210C3B400C76C82 /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
+		84F8A1832210D0F600C76C82 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				84F8A167221088AF00C76C82 /* AppDelegate.swift */,
+				84F8A1832210D0F600C76C82 /* Note.swift */,
 				84F8A1812210C3B400C76C82 /* NewNoteViewController.swift */,
 				84F8A17D2210B45100C76C82 /* NoteViewController.swift */,
 				84F8A17F2210C1E700C76C82 /* EditViewController.swift */,
@@ -149,6 +152,7 @@
 			files = (
 				84F8A1802210C1E700C76C82 /* EditViewController.swift in Sources */,
 				84F8A17E2210B45100C76C82 /* NoteViewController.swift in Sources */,
+				84F8A1842210D0F600C76C82 /* Note.swift in Sources */,
 				84F8A168221088AF00C76C82 /* AppDelegate.swift in Sources */,
 				84F8A17A22108ACE00C76C82 /* TableViewController.swift in Sources */,
 				84F8A17C22108C9600C76C82 /* NotesModel.swift in Sources */,
