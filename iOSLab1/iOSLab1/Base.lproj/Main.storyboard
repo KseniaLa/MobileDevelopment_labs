@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--Sing In-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iOSLab1" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LEf-gV-vca" kind="show" id="cBC-uA-2Ee"/>
+                                    <action selector="signIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ay8-tc-f61"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qoa-2i-wmG">
@@ -67,7 +67,12 @@
                         <color key="backgroundColor" red="1" green="0.86934236381068797" blue="0.81527631660611977" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="qaX-gg-BZv"/>
+                    <navigationItem key="navigationItem" title="Sing In" id="qaX-gg-BZv"/>
+                    <connections>
+                        <outlet property="loginField" destination="QPv-at-3jt" id="s8b-yf-19h"/>
+                        <outlet property="passwordField" destination="bI5-cN-hWf" id="eKS-8l-Tae"/>
+                        <segue destination="LEf-gV-vca" kind="show" id="GhC-S0-4VR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -181,7 +186,7 @@
         <!--Table View Controller-->
         <scene sceneID="f8i-5x-XIq">
             <objects>
-                <tableViewController id="LEf-gV-vca" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserListViewController" id="LEf-gV-vca" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oQb-Fd-Wsp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
