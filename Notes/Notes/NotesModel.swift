@@ -8,7 +8,7 @@
 
 import Foundation
 
-var noteItems: [String] = ["Call to somebodyyyyyyyyyyyyyyyyy", "Do joga", "Sleep"]
+var noteItems: [String] = ["Call to somebody", "Do joga", "Sleep"]
 
 var selectedNoteIndex: Int = 0
 

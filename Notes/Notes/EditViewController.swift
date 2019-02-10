@@ -1,5 +1,5 @@
 //
-//  NoteViewController.swift
+//  EditViewController.swift
 //  Notes
 //
 //  Created by Admin on 10.02.2019.
@@ -8,17 +8,16 @@
 
 import UIKit
 
-class NoteViewController: UIViewController {
-    
-    @IBAction func editNoteAction(_ sender: Any) {
-        performSegue(withIdentifier: "editSegue", sender: self)
+class EditViewController: UIViewController {
+
+    @IBAction func saveEditedNote(_ sender: Any) {
+        
     }
-    
-    @IBOutlet weak var noteDetails: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noteDetails.title = noteItems[selectedNoteIndex]
+
+        // Do any additional setup after loading the view.
     }
     
 

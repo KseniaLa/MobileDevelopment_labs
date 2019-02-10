@@ -12,8 +12,10 @@ class TableViewController: UITableViewController {
 
     
     @IBAction func pushAddAction(_ sender: Any) {
-        addNote(noteTitle: "Hello", noteBody: "hello")
-        tableView.reloadData()
+        //addNote(noteTitle: "Hello", noteBody: "hello")
+        //tableView.reloadData()
+        performSegue(withIdentifier: "addSegue", sender: self)
+        
     }
     
     override func viewDidLoad() {

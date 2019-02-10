@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="umc-sA-v6n">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <objects>
                 <tableViewController id="NtB-iu-SsF" customClass="TableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Chx-XU-C9Q">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -23,11 +23,11 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WI5-zx-gL8" id="ioR-8X-AIU">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D9R-8O-6iO">
-                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="324" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -51,42 +51,120 @@
                     </navigationItem>
                     <connections>
                         <segue destination="iba-SM-qsO" kind="show" identifier="seague" id="RnV-Uz-zOv"/>
+                        <segue destination="mv4-En-ucx" kind="show" identifier="addSegue" id="bqG-hW-MFu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fY0-Ez-wju" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2526" y="134"/>
         </scene>
+        <!--New Note-->
+        <scene sceneID="cDU-MC-LCF">
+            <objects>
+                <viewController id="mv4-En-ucx" customClass="NewNoteViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B8G-jo-U7A">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CnS-sH-R7E">
+                                <rect key="frame" x="16" y="165" width="343" height="498"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BQ4-vT-Ale">
+                                <rect key="frame" x="16" y="109" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="UaY-0Y-Wvc"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Note" id="ZhG-fj-e12">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1tc-8I-m5l">
+                            <connections>
+                                <action selector="saveNewNote:" destination="mv4-En-ucx" id="FpJ-58-A1M"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="noteTitle" destination="BQ4-vT-Ale" id="B1k-kz-eSF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ox-9o-lMN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3320.8000000000002" y="-598.65067466266873"/>
+        </scene>
         <!--Note View Controller-->
         <scene sceneID="Ai5-Rh-Vqj">
             <objects>
                 <viewController id="iba-SM-qsO" customClass="NoteViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jal-O1-l4l">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="PsF-OB-kff">
-                                <rect key="frame" x="8" y="79" width="351" height="42"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySF-Go-6aa">
+                                <rect key="frame" x="10" y="106" width="355" height="577"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Hello ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to  HELLO</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="63K-V2-zms"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hbz-hl-Fxq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="5lj-DU-ixA"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="5lj-DU-ixA">
+                            <connections>
+                                <action selector="editNoteAction:" destination="iba-SM-qsO" id="nDP-lQ-OMU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="noteDetails" destination="Hbz-hl-Fxq" id="m1H-Tl-X8I"/>
-                        <outlet property="noteTitle" destination="PsF-OB-kff" id="zCr-K3-Oer"/>
+                        <segue destination="sYh-OV-xDA" kind="show" identifier="editSegue" id="W7h-U8-mIB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvt-tJ-RNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3276" y="134.48275862068968"/>
+            <point key="canvasLocation" x="3472.8000000000002" y="133.5832083958021"/>
+        </scene>
+        <!--Edit Note-->
+        <scene sceneID="KwB-Ht-zMG">
+            <objects>
+                <viewController id="sYh-OV-xDA" customClass="EditViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jar-NA-3g7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SKE-mJ-xLo">
+                                <rect key="frame" x="16" y="107" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ENX-1f-oG8"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit Note" id="tE4-3g-yG6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="EmB-Go-ltz">
+                            <connections>
+                                <action selector="saveEditedNote:" destination="sYh-OV-xDA" id="NC7-It-B95"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mI8-Oy-EI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4253.6000000000004" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="H77-e9-mU5">
@@ -94,7 +172,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="umc-sA-v6n" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iol-rk-x5F">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
