@@ -47,6 +47,14 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        selectedNoteIndex = indexPath.row
+        
+        performSegue(withIdentifier: "seague", sender: self)
+    }
 
     
     // Override to support conditional editing of the table view.
