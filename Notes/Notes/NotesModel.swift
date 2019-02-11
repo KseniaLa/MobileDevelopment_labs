@@ -8,14 +8,14 @@
 
 import Foundation
 
-var noteItems: [String] = ["Call to somebody", "Do joga", "Sleep"]
+var noteItems: [Note] = []
 
-var note = Note(title: "hello", content: "hello", id: 1)
+//var note = Note(title: "hello", content: "hello", id: 1)
 
 var selectedNoteIndex: Int = 0
 
 func addNote(noteTitle: String, noteBody: String){
-    noteItems.append(noteTitle)
+    //noteItems.append(noteTitle)
     saveData()
 }
 

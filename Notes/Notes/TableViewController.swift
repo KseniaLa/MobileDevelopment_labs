@@ -12,10 +12,13 @@ class TableViewController: UITableViewController {
 
     
     @IBAction func pushAddAction(_ sender: Any) {
-        //addNote(noteTitle: "Hello", noteBody: "hello")
-        //tableView.reloadData()
         performSegue(withIdentifier: "addSegue", sender: self)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        makeGetCall()
+        //add callback!
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -24,22 +27,15 @@ class TableViewController: UITableViewController {
         makeGetCall()
         //makeDeleteCall(on: 1)
         //makePostCall()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return noteItems.count
     }
 
@@ -47,7 +43,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        cell.textLabel?.text = noteItems[indexPath.row]
+        cell.textLabel?.text = noteItems[indexPath.row].title
 
         return cell
     }

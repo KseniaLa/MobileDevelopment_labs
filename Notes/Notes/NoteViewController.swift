@@ -18,7 +18,7 @@ class NoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noteDetails.title = noteItems[selectedNoteIndex]
+        noteDetails.title = noteItems[selectedNoteIndex].title
     }
     
 

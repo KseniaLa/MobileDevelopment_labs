@@ -19,7 +19,20 @@ func makeGetCall() {
             //here dataResponse received from a network request
             let jsonResponse = try JSONSerialization.jsonObject(with:
                 dataResponse, options: [])
-            print(jsonResponse) //Response result
+            //print(jsonResponse) //Response result
+            guard let jsonArray = jsonResponse as? [[String: Any]] else {
+                return
+            }
+            var model = [Note]() //Initialising Model Array
+            for dic in jsonArray{
+                model.append(Note(dic)) // adding now value in Model array
+            }
+            noteItems = model
+            for note in noteItems{
+                print(note.title)
+                print(note.content)
+            }
+            
         } catch let parsingError {
             print("Error", parsingError)
         }

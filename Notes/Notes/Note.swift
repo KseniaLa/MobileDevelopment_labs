@@ -8,15 +8,16 @@
 
 import Foundation
 
-class Note: Codable {
+class Note {
     var title = ""
     var content = ""
     var id: Int
     
-    init(title: String, content: String, id: Int) {
-        self.title = title
-        self.content = content
-        self.id = id
+    init(_ dictionary: [String: Any]) {
+        self.title = dictionary["title"] as? String ?? ""
+        self.content = dictionary["content"] as? String ?? ""
+        self.id = dictionary["id"] as? Int ?? 0
+        
     }
 }
 
