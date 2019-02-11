@@ -63,57 +63,35 @@ func makeGetCall() {
 }
 
 func makePostCall() {
-    let todosEndpoint: String = "http://jsonplaceholder.typicode.com/todos"
-    guard let todosURL = URL(string: todosEndpoint) else {
-        print("Error: cannot create URL")
+    let note = NoteInfo(title: "hello", content: "lol")
+    guard let uploadData = try? JSONEncoder().encode(note) else {
+        print("json error")
         return
     }
-    var todosUrlRequest = URLRequest(url: todosURL)
-    todosUrlRequest.httpMethod = "POST"
-    let newTodo: [String: Any] = ["title": "My First todo", "completed": false, "userId": 1]
-    let jsonTodo: Data
-    do {
-        jsonTodo = try JSONSerialization.data(withJSONObject: newTodo, options: [])
-        todosUrlRequest.httpBody = jsonTodo
-    } catch {
-        print("Error: cannot create JSON from todo")
-        return
-    }
+    let url = URL(string: "http://azarov.by:8080/notes")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
-    let session = URLSession.shared
-    
-    let task = session.dataTask(with: todosUrlRequest) {
-        (data, response, error) in
-        guard error == nil else {
-            print("error calling POST on /todos/1")
-            print(error!)
+    let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
+        if let error = error {
+            print ("error: \(error)")
             return
         }
-        guard let responseData = data else {
-            print("Error: did not receive data")
-            return
-        }
-        
-        // parse the result as JSON, since that's what the API provides
-        do {
-            guard let receivedTodo = try JSONSerialization.jsonObject(with: responseData,
-                                                                      options: []) as? [String: Any] else {
-                                                                        print("Could not get JSON from responseData as dictionary")
-                                                                        return
-            }
-            print("The todo is: " + receivedTodo.description)
-            
-            guard let todoID = receivedTodo["id"] as? Int else {
-                print("Could not get todoID as int from JSON")
+        guard let response = response as? HTTPURLResponse,
+            (200...299).contains(response.statusCode) else {
+                print ("server error")
                 return
-            }
-            print("The ID is: \(todoID)")
-        } catch  {
-            print("error parsing response from POST on /todos")
-            return
+        }
+        if let mimeType = response.mimeType,
+            mimeType == "application/json",
+            let data = data,
+            let dataString = String(data: data, encoding: .utf8) {
+            print ("got data: \(dataString)")
         }
     }
     task.resume()
+    
 }
 
 func makeDeleteCall() {
