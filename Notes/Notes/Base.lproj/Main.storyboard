@@ -92,6 +92,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noteContent" destination="CnS-sH-R7E" id="O2p-x8-eXY"/>
                         <outlet property="noteTitle" destination="BQ4-vT-Ale" id="B1k-kz-eSF"/>
                     </connections>
                 </viewController>
@@ -111,7 +112,6 @@
                                 <rect key="frame" x="10" y="106" width="355" height="577"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Hello ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to ent, sunt in culpa qui officia deserunt mollikljkjkjkl;lkjkjkl;t anim id est laborum. Nam liber te conscient to  HELLO</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -127,6 +127,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="noteContent" destination="ySF-Go-6aa" id="5zA-cM-MHt"/>
                         <outlet property="noteDetails" destination="Hbz-hl-Fxq" id="m1H-Tl-X8I"/>
                         <segue destination="sYh-OV-xDA" kind="show" identifier="editSegue" id="W7h-U8-mIB"/>
                     </connections>

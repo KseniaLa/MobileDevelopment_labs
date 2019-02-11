@@ -16,15 +16,16 @@ class TableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        makeGetCall()
+        getNotesCall()
         //add callback!
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        makeGetCall()
+        
+        getNotesCall()
+        tableView.reloadData()
         //makeDeleteCall(on: 1)
         //makePostCall()
     }

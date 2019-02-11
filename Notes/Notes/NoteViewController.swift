@@ -14,11 +14,13 @@ class NoteViewController: UIViewController {
         performSegue(withIdentifier: "editSegue", sender: self)
     }
     
+    @IBOutlet weak var noteContent: UITextView!
     @IBOutlet weak var noteDetails: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         noteDetails.title = noteItems[selectedNoteIndex].title
+        noteContent.text = noteItems[selectedNoteIndex].content
     }
     
 

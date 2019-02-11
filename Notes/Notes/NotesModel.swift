@@ -15,13 +15,13 @@ var noteItems: [Note] = []
 var selectedNoteIndex: Int = 0
 
 func addNote(noteTitle: String, noteBody: String){
-    //noteItems.append(noteTitle)
-    saveData()
+    addNoteCall(with: NoteInfo(title: noteTitle, content: noteBody))
+    getNotesCall()
 }
 
 func removeNote(at index: Int){
-    noteItems.remove(at: index)
-    saveData()
+    deleteNoteCall(on: noteItems[index].id)
+    getNotesCall()
 }
 
 func saveData(){

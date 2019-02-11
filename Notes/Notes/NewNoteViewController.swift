@@ -12,8 +12,10 @@ class NewNoteViewController: UIViewController {
 
     @IBOutlet weak var noteTitle: UITextField!
     
+    @IBOutlet weak var noteContent: UITextView!
+    
     @IBAction func saveNewNote(_ sender: Any) {
-        
+        addNote(noteTitle: noteTitle!.text ?? "default", noteBody: noteContent!.text)
     }
     
     override func viewDidLoad() {
