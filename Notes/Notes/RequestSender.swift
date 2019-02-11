@@ -9,54 +9,19 @@
 import Foundation
 
 func makeGetCall() {
-    // Set up the URL request
-    let todoEndpoint: String = "http://azarov.by:8080/notes"
-    guard let url = URL(string: todoEndpoint) else {
-        print("Error: cannot create URL")
-        return
-    }
-    let urlRequest = URLRequest(url: url)
-    
-    // set up the session
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    
-    // make the request
-    let task = session.dataTask(with: urlRequest) {
-        (data, response, error) in
-        // check for any errors
-        guard error == nil else {
-            print("error calling GET on /todos/1")
-            print(error!)
-            return
-        }
-        // make sure we got data
-        guard let responseData = data else {
-            print("Error: did not receive data")
-            return
-        }
-        // parse the result as JSON, since that's what the API provides
-        do {
-            guard let todo = try JSONSerialization.jsonObject(with: responseData, options: [])
-                as? [String: Any] else {
-                    print("error trying to convert data to JSON")
-                    return
-            }
-            // now we have the todo
-            // let's just print it to prove we can access it
-            print("The todo is: " + todo.description)
-            
-            // the todo object is a dictionary
-            // so we just access the title using the "title" key
-            // so check for a title and print it if we have one
-            guard let todoTitle = todo["title"] as? String else {
-                print("Could not get todo title from JSON")
-                return
-            }
-            print("The title is: " + todoTitle)
-        } catch  {
-            print("error trying to convert data to JSON")
-            return
+    guard let url = URL(string: "http://azarov.by:8080/notes") else {return}
+    let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        guard let dataResponse = data,
+            error == nil else {
+                print(error?.localizedDescription ?? "Response Error")
+                return }
+        do{
+            //here dataResponse received from a network request
+            let jsonResponse = try JSONSerialization.jsonObject(with:
+                dataResponse, options: [])
+            print(jsonResponse) //Response result
+        } catch let parsingError {
+            print("Error", parsingError)
         }
     }
     task.resume()
@@ -94,14 +59,14 @@ func makePostCall() {
     
 }
 
-func makeDeleteCall() {
-    let firstTodoEndpoint: String = "https://jsonplaceholder.typicode.com/todos/1"
-    var firstTodoUrlRequest = URLRequest(url: URL(string: firstTodoEndpoint)!)
-    firstTodoUrlRequest.httpMethod = "DELETE"
+func makeDeleteCall(on id: Int) {
+    let noteEndpoint: String = "http://azarov.by:8080/notes/" + String(id)
+    var noteUrlRequest = URLRequest(url: URL(string: noteEndpoint)!)
+    noteUrlRequest.httpMethod = "DELETE"
     
     let session = URLSession.shared
     
-    let task = session.dataTask(with: firstTodoUrlRequest) {
+    let task = session.dataTask(with: noteUrlRequest) {
         (data, response, error) in
         guard let _ = data else {
             print("error calling DELETE on /todos/1")

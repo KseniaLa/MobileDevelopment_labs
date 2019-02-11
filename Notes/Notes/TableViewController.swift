@@ -21,7 +21,9 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        makePostCall()
+        makeGetCall()
+        //makeDeleteCall(on: 1)
+        //makePostCall()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
