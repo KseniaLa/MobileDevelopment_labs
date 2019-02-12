@@ -8,13 +8,14 @@
 
 import Foundation
 
-func getNotesCall() {
+func getNotesCall(callback: @escaping () -> Void) {
     guard let url = URL(string: "http://azarov.by:8080/notes") else {return}
     let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
         guard let dataResponse = data,
             error == nil else {
                 print(error?.localizedDescription ?? "Response Error")
-                return }
+                return
+        }
         do{
             //here dataResponse received from a network request
             let jsonResponse = try JSONSerialization.jsonObject(with:
@@ -28,6 +29,7 @@ func getNotesCall() {
                 model.append(Note(dic)) // adding now value in Model array
             }
             noteItems = model
+            callback()
             for note in noteItems{
                 print(note.title)
                 print(note.content)
@@ -40,7 +42,7 @@ func getNotesCall() {
     task.resume()
 }
 
-func addNoteCall(with newNote: NoteInfo) {
+func addNoteCall(with newNote: NoteInfo, onSuccess: @escaping () -> Void) {
     let note = newNote
     guard let uploadData = try? JSONEncoder().encode(note) else {
         print("json error")
@@ -66,6 +68,7 @@ func addNoteCall(with newNote: NoteInfo) {
             let data = data,
             let dataString = String(data: data, encoding: .utf8) {
             print ("got data: \(dataString)")
+            onSuccess()
         }
     }
     task.resume()

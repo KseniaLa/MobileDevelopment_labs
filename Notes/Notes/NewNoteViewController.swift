@@ -15,7 +15,16 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var noteContent: UITextView!
     
     @IBAction func saveNewNote(_ sender: Any) {
-        addNote(noteTitle: noteTitle!.text ?? "default", noteBody: noteContent!.text)
+        addNote(noteTitle: noteTitle!.text ?? "default", noteBody: noteContent!.text, onSuccess: onSuccess)
+    }
+    
+    func onSuccess(){
+        //let alert = UIAlertController(title: "Success", message: "Note added", preferredStyle: .alert)
+        
+        //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
+        
+        //present(alert, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {

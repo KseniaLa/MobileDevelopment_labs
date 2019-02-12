@@ -16,18 +16,38 @@ class TableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getNotesCall()
-        //add callback!
-        tableView.reloadData()
+        startSpinner()
+        getNotesCall(callback: updateData)
+    }
+    
+    var spinner:UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    func startSpinner(){
+        spinner.center = self.view.center
+        spinner.hidesWhenStopped = true
+        spinner.style = UIActivityIndicatorView.Style.gray
+        view.addSubview(spinner)
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        spinner.startAnimating()
+    }
+    
+    func stopSpinner(){
+        spinner.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getNotesCall()
+        //getNotesCall()
         tableView.reloadData()
         //makeDeleteCall(on: 1)
         //makePostCall()
+    }
+    
+    func updateData(){
+        tableView.reloadData()
+        stopSpinner()
     }
 
     // MARK: - Table view data source

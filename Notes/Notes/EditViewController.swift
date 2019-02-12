@@ -10,14 +10,18 @@ import UIKit
 
 class EditViewController: UIViewController {
 
+    @IBOutlet weak var editTitle: UITextField!
+    @IBOutlet weak var editContent: UITextView!
+    
     @IBAction func saveEditedNote(_ sender: Any) {
-        
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        editTitle.text = noteItems[selectedNoteIndex].title
+        editContent.text = noteItems[selectedNoteIndex].content
     }
     
 
