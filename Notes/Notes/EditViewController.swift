@@ -14,7 +14,13 @@ class EditViewController: UIViewController {
     @IBOutlet weak var editContent: UITextView!
     
     @IBAction func saveEditedNote(_ sender: Any) {
+        removeNote(at: selectedNoteIndex)
+        addNote(noteTitle: editTitle.text ?? "", noteBody: editContent.text, onSuccess: onSuccess)
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func onSuccess(){
+        print("edited")
     }
     
     override func viewDidLoad() {

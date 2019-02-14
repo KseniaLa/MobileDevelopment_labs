@@ -17,16 +17,15 @@ func getNotesCall(callback: @escaping () -> Void) {
                 return
         }
         do{
-            //here dataResponse received from a network request
             let jsonResponse = try JSONSerialization.jsonObject(with:
                 dataResponse, options: [])
-            //print(jsonResponse) //Response result
             guard let jsonArray = jsonResponse as? [[String: Any]] else {
+                print("error parsing data")
                 return
             }
-            var model = [Note]() //Initialising Model Array
+            var model = [Note]()
             for dic in jsonArray{
-                model.append(Note(dic)) // adding now value in Model array
+                model.append(Note(dic))
             }
             noteItems = model
             callback()

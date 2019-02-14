@@ -38,16 +38,14 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //getNotesCall()
         tableView.reloadData()
-        //makeDeleteCall(on: 1)
-        //makePostCall()
     }
     
     func updateData(){
-        tableView.reloadData()
-        stopSpinner()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.stopSpinner()
+        }
     }
 
     // MARK: - Table view data source
