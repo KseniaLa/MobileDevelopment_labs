@@ -17,7 +17,7 @@ class TableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         startSpinner()
-        getNotesCall(callback: updateData)
+        getNotesCall(callback: updateData, onError: onError)
     }
     
     var spinner:UIActivityIndicatorView = UIActivityIndicatorView()
@@ -47,7 +47,16 @@ class TableViewController: UITableViewController {
             self.stopSpinner()
         }
     }
-
+    
+    func onError(){
+        DispatchQueue.main.async {
+            self.stopSpinner()
+            let alert = UIAlertController(title: "Error", message: "Failed to fetch notes", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,11 +97,18 @@ class TableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            removeNote(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            removeNote(at: indexPath, onDelete: deleteNote)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    func deleteNote(indexPath: IndexPath){
+        DispatchQueue.main.async {
+            noteItems.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
 

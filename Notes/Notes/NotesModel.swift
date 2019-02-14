@@ -14,12 +14,16 @@ var noteItems: [Note] = []
 
 var selectedNoteIndex: Int = 0
 
-func addNote(noteTitle: String, noteBody: String, onSuccess: @escaping () -> Void){
-    addNoteCall(with: NoteInfo(title: noteTitle, content: noteBody), onSuccess: onSuccess)
+func addNote(noteTitle: String, noteBody: String, callback: @escaping (Bool) -> Void){
+    addNoteCall(with: NoteInfo(title: noteTitle, content: noteBody), callback: callback)
 }
 
-func removeNote(at index: Int){
-    deleteNoteCall(on: noteItems[index].id)
+func removeNote(at index: IndexPath, onDelete: @escaping (IndexPath) -> Void){
+    deleteNoteCall(on: noteItems[index.row].id, at: index, onDelete: onDelete)
+}
+
+func removeNoteDirect(at index: Int){
+    deleteNoteCallDirect(on: noteItems[index].id)
 }
 
 func saveData(){

@@ -8,12 +8,13 @@
 
 import Foundation
 
-func getNotesCall(callback: @escaping () -> Void) {
+func getNotesCall(callback: @escaping () -> Void, onError: @escaping () -> Void) {
     guard let url = URL(string: "http://azarov.by:8080/notes") else {return}
     let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
         guard let dataResponse = data,
             error == nil else {
                 print(error?.localizedDescription ?? "Response Error")
+                onError()
                 return
         }
         do{
@@ -21,6 +22,7 @@ func getNotesCall(callback: @escaping () -> Void) {
                 dataResponse, options: [])
             guard let jsonArray = jsonResponse as? [[String: Any]] else {
                 print("error parsing data")
+                onError()
                 return
             }
             var model = [Note]()
@@ -36,15 +38,17 @@ func getNotesCall(callback: @escaping () -> Void) {
             
         } catch let parsingError {
             print("Error", parsingError)
+            onError()
         }
     }
     task.resume()
 }
 
-func addNoteCall(with newNote: NoteInfo, onSuccess: @escaping () -> Void) {
+func addNoteCall(with newNote: NoteInfo, callback: @escaping (Bool) -> Void) {
     let note = newNote
     guard let uploadData = try? JSONEncoder().encode(note) else {
         print("json error")
+        callback(false)
         return
     }
     let url = URL(string: "http://azarov.by:8080/notes")!
@@ -55,11 +59,13 @@ func addNoteCall(with newNote: NoteInfo, onSuccess: @escaping () -> Void) {
     let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
         if let error = error {
             print ("error: \(error)")
+            callback(false)
             return
         }
         guard let response = response as? HTTPURLResponse,
             (200...299).contains(response.statusCode) else {
                 print ("server error")
+                callback(false)
                 return
         }
         if let mimeType = response.mimeType,
@@ -67,14 +73,14 @@ func addNoteCall(with newNote: NoteInfo, onSuccess: @escaping () -> Void) {
             let data = data,
             let dataString = String(data: data, encoding: .utf8) {
             print ("got data: \(dataString)")
-            onSuccess()
+            callback(true)
         }
     }
     task.resume()
     
 }
 
-func deleteNoteCall(on id: Int) {
+func deleteNoteCall(on id: Int, at index: IndexPath, onDelete: @escaping (IndexPath) -> Void) {
     let noteEndpoint: String = "http://azarov.by:8080/notes/" + String(id)
     var noteUrlRequest = URLRequest(url: URL(string: noteEndpoint)!)
     noteUrlRequest.httpMethod = "DELETE"
@@ -87,7 +93,25 @@ func deleteNoteCall(on id: Int) {
             print("error calling DELETE on /todos/1")
             return
         }
-        print("DELETE ok")
+        onDelete(index)
+    }
+    task.resume()
+}
+
+func deleteNoteCallDirect(on id: Int) {
+    let noteEndpoint: String = "http://azarov.by:8080/notes/" + String(id)
+    var noteUrlRequest = URLRequest(url: URL(string: noteEndpoint)!)
+    noteUrlRequest.httpMethod = "DELETE"
+    
+    let session = URLSession.shared
+    
+    let task = session.dataTask(with: noteUrlRequest) {
+        (data, response, error) in
+        guard let _ = data else {
+            print("error calling DELETE on /todos/1")
+            return
+        }
+        print("Delete ok")
     }
     task.resume()
 }
