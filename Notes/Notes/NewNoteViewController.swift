@@ -15,6 +15,10 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var noteContent: UITextView!
     
     @IBAction func saveNewNote(_ sender: Any) {
+        if (noteTitle.text == ""){
+            showValidationMessage()
+            return
+        }
         startSpinner()
         addNote(noteTitle: noteTitle!.text ?? "default", noteBody: noteContent!.text, callback: callback)
     }
@@ -44,6 +48,12 @@ class NewNoteViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func showValidationMessage(){
+        let alert = UIAlertController(title: "Warning", message: "Note title cant't be empty. Note won't be saved", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

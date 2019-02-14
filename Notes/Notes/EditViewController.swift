@@ -14,10 +14,14 @@ class EditViewController: UIViewController {
     @IBOutlet weak var editContent: UITextView!
     
     @IBAction func saveEditedNote(_ sender: Any) {
+        if (editTitle.text == ""){
+            showValidationMessage()
+            return
+        }
         startSpinner()
         removeNoteDirect(at: selectedNoteIndex)
         addNote(noteTitle: editTitle.text ?? "", noteBody: editContent.text, callback: callback)
-        self.navigationController?.popToRootViewController(animated: true)
+        
     }
     
     var spinner:UIActivityIndicatorView = UIActivityIndicatorView()
@@ -43,8 +47,10 @@ class EditViewController: UIViewController {
             let message = isSuccess ? "Note editted" : "Failed to edit note"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
-        }
+            
+            //self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - 3].viewWillAppear(true)
+            self.navigationController!.popToRootViewController(animated: true)
+            self.present(alert, animated: true, completion: nil)        }
     }
     
     override func viewDidLoad() {
@@ -54,6 +60,11 @@ class EditViewController: UIViewController {
         editContent.text = noteItems[selectedNoteIndex].content
     }
     
+    func showValidationMessage(){
+        let alert = UIAlertController(title: "Warning", message: "Note title cant't be empty. Note won't be saved", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
