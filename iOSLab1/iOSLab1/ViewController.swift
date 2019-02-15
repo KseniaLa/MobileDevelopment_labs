@@ -33,8 +33,7 @@ class ViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
         } else {
-            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserListViewController")
-            self.present(viewController, animated: true, completion: nil)
+            //perform segue
         }
         
     }
