@@ -19,23 +19,20 @@ class ViewController: UIViewController {
         let password = passwordField.text
         
         if login!.count == 0 {
-            let alert = UIAlertController(title: "Invalid", message: "Username can't be empty", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
-            
-            self.present(alert, animated: true, completion: nil)
-            
+            showWarningAlert(title: "Invalid", message: "Username can't be empty", actionTitle: "Got it")
         } else if password!.count == 0 {
-            let alert = UIAlertController(title: "Invalid", message: "Password can't be empty", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
-            
-            self.present(alert, animated: true, completion: nil)
-            
+            showWarningAlert(title: "Invalid", message: "Password can't be empty", actionTitle: "Got it")
         } else {
-            //perform segue
+            performSegue(withIdentifier: "showUsers", sender: self)
         }
+    }
+    
+    func showWarningAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
