@@ -35,9 +35,15 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        isAuthorized = false
+        loginField.text = ""
+        passwordField.text = ""
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
 
