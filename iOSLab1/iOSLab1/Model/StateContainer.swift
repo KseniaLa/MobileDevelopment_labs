@@ -14,22 +14,26 @@ var isRegistration = false
 
 var isAddition = false
 
-var isEditing = false
+var isEditingMode = false
+
+var currentUserFocus = false
+
+var selectedUserIndex = 0
 
 func setRegistrationMode(){
     isRegistration = true
     isAddition = false
-    isEditing = false
+    isEditingMode = false
 }
 
 func setAdditionMode(){
     isRegistration = false
     isAddition = true
-    isEditing = false
+    isEditingMode = false
 }
 
 func setEditingMode(){
     isRegistration = false
     isAddition = false
-    isEditing = true
+    isEditingMode = true
 }

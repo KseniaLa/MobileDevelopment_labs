@@ -17,6 +17,24 @@ func checkUserExists(login: String, password: String) -> Bool{
     return users.count != 0
 }
 
+func getUserByCreds(login: String, password: String) -> User {
+    let users = getUserByLoginPass(login: login, password: password)
+    if (users.count != 0){
+        return users[0]
+    }
+    else {
+        return User()
+    }
+}
+
 func getUsers() {
     users = getAllUsers()
+    users = users.filter { (user) -> Bool in
+        user.login != currentUser.login
+    }
+}
+
+func confirmUserNotExists(login: String) -> Bool {
+    let usrs = getUsersByLogin(login: login)
+    return usrs.count == 0
 }

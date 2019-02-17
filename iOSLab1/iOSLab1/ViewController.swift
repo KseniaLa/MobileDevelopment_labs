@@ -29,7 +29,11 @@ class ViewController: UIViewController {
             showWarningAlert(title: "Invalid", message: "Password can't be empty", actionTitle: "Got it")
         } else {
             if (checkUserExists(login: login!, password: password!)){
+                currentUser = getUserByCreds(login: login!, password: password!)
                 performSegue(withIdentifier: "showUsers", sender: self)
+            }
+            else {
+                showWarningAlert(title: "Error", message: "Invalid login or password", actionTitle: "Got it")
             }
         }
     }

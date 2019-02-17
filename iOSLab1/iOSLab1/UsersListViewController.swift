@@ -16,8 +16,14 @@ class UsersListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var nameLbl: UILabel!
     
+    @IBOutlet weak var userImage: UIImageView!
+    
     @IBAction func logOut(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func showUserDetails(_ sender: Any) {
+        currentUserFocus = true
     }
     
     @IBAction func editCurrentUser(_ sender: Any) {
@@ -32,11 +38,12 @@ class UsersListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         getUsers()
         userList.reloadData()
+        currentUserFocus = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        userImage.image = UIImage(named: "user")
         loginLbl.text = currentUser.login
         nameLbl.text = currentUser.name
     }
@@ -46,15 +53,27 @@ class UsersListViewController: UIViewController, UITableViewDelegate, UITableVie
         return users.count
     }
     
-    
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell", for: indexPath)
         cell.textLabel?.text = users[indexPath.row].login
         cell.detailTextLabel?.text = users[indexPath.row].name
         return cell
     }
-
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let usr = users[indexPath.row]
+            deleteUser(user: usr)
+            users.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        selectedUserIndex = indexPath.row
+    }
     /*
     // MARK: - Navigation
 

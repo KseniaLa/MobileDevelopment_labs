@@ -30,23 +30,57 @@ class AddEditUserViewController: UIViewController {
         let dateOfBirth = birthDatePicker.date
         let address = addressField.text
         let password = passwordField.text
+        let confPassword = confPasswordField.text
+        
+        if (login == "" || password == "" || name == "") {
+            showWarningAlert(title: "Warning", message: "Required fields are empty", actionTitle: "Got it")
+            return
+        }
+        
+        if (password != confPassword) {
+            showWarningAlert(title: "Warning", message: "Passwords are not equal", actionTitle: "Got it")
+            return
+        }
+        
+        if ((isRegistration || isAddition) || (isEditingMode && login != currentUser.login)) {
+            if (!confirmUserNotExists(login: login!)) {
+                showWarningAlert(title: "Warning", message: "Such login alreade exists", actionTitle: "Got it")
+                return
+            }
+        }
+        
+        let tempUser = User()
+        tempUser.name = name
+        tempUser.surname = surname
+        tempUser.login = login
+        tempUser.dateOfBirth = dateOfBirth
+        tempUser.gender = gender
+        tempUser.address = address
+        tempUser.password = password
         
         if (isRegistration){
-            let tempUser = User()
-            tempUser.name = name
-            tempUser.surname = surname
-            tempUser.login = login
-            tempUser.dateOfBirth = dateOfBirth
-            tempUser.gender = gender
-            tempUser.address = address
-            tempUser.password = password
             addUser(user: tempUser)
+            currentUser = tempUser
+        }
+        else if (isAddition){
+            addUser(user: tempUser)
+        }
+        else if (isEditingMode){
+            updateUser(login: currentUser.login!, user: tempUser)
             currentUser = tempUser
         }
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "userListViewController") as UIViewController
         self.navigationController?.pushViewController(newViewController, animated: true)
+    }
+    
+    func showWarningAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -58,8 +92,16 @@ class AddEditUserViewController: UIViewController {
         else if (isAddition){
             pageHeader.title = "Add User"
         }
-        else if (isEditing){
+        else if (isEditingMode){
             pageHeader.title = "Edit User"
+            loginField.text = currentUser.login
+            nameField.text = currentUser.name
+            surnameField.text = currentUser.surname
+            genderSwitch.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
+            birthDatePicker.date = currentUser.dateOfBirth ?? Date()
+            addressField.text = currentUser.address
+            passwordField.text = currentUser.password
+            confPasswordField.text = currentUser.password
         }
     }
     
