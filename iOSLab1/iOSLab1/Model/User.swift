@@ -8,7 +8,8 @@
 
 import Foundation
 
-class User {
+
+class Userr {
     var name: String = ""
     var surname: String = ""
     var login: String = ""

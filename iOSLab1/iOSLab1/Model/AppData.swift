@@ -8,6 +8,6 @@
 
 import Foundation
 
-var user = User(name: "Bob", login: "hello")
+var user = Userr(name: "Bob", login: "hello")
 
-var users: [User] = [User(name: "Bob", login: "hello"), User(name: "Tom", login: "orange"), User(name: "Lisa", login: "girl")]
+var users: [Userr] = [Userr(name: "Bob", login: "hello"), Userr(name: "Tom", login: "orange"), Userr(name: "Lisa", login: "girl")]

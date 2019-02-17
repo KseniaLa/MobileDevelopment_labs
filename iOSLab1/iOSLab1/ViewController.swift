@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
@@ -43,7 +44,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var realm = try! Realm()
         
+        print(Realm.Configuration.defaultConfiguration.fileURL)
     }
 
 
