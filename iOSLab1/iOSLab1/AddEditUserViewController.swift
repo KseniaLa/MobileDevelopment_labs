@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddEditUserViewController: UIViewController {
+class AddEditUserViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     
     @IBOutlet weak var loginField: UITextField!
@@ -20,7 +20,30 @@ class AddEditUserViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confPasswordField: UITextField!
     
+    @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var pageHeader: UINavigationItem!
+    
+    var imagePicker = UIImagePickerController()
+    
+    @IBAction func chooseImage(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            print("Button capture")
+            
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum;
+            imagePicker.allowsEditing = false
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+        self.dismiss(animated: true, completion: { () -> Void in
+            
+        })
+        
+        userImage.image = image
+    }
     
     @IBAction func showUserList(_ sender: Any) {
         let login = loginField.text
@@ -85,11 +108,15 @@ class AddEditUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        imagePicker.delegate = self
+        
         if (isRegistration){
+            userImage.image = UIImage(named: "user")
             pageHeader.title = "Registration"
         }
         else if (isAddition){
+            userImage.image = UIImage(named: "user")
             pageHeader.title = "Add User"
         }
         else if (isEditingMode){
@@ -102,6 +129,10 @@ class AddEditUserViewController: UIViewController {
             addressField.text = currentUser.address
             passwordField.text = currentUser.password
             confPasswordField.text = currentUser.password
+            
+            if (currentUser.avatar == nil){
+                userImage.image = UIImage(named: "user")
+            }
         }
     }
     

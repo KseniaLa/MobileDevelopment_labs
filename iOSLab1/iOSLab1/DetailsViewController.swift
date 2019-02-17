@@ -17,6 +17,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var birthLbl: UILabel!
     @IBOutlet weak var addressLbl: UILabel!
     
+    @IBOutlet weak var userImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,7 +29,10 @@ class DetailsViewController: UIViewController {
             genderLbl.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
             birthLbl.text = "date"
             addressLbl.text = currentUser.address
-        }
+            
+            if (currentUser.avatar == nil){
+                userImage.image = UIImage(named: "user")
+            }        }
         else {
             loginLbl.text = users[selectedUserIndex].login
             nameLbl.text = users[selectedUserIndex].name
@@ -35,7 +40,10 @@ class DetailsViewController: UIViewController {
             genderLbl.selectedSegmentIndex = users[selectedUserIndex].gender == "Man" ? 0 : 1
             birthLbl.text = "date"
             addressLbl.text = users[selectedUserIndex].address
-        }
+            
+            if (users[selectedUserIndex].avatar == nil){
+                userImage.image = UIImage(named: "user")
+            }        }
     }
     
 

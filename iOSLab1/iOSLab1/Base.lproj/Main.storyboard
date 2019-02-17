@@ -264,6 +264,7 @@
                         <outlet property="loginLbl" destination="EgL-fb-IXA" id="pPo-Cy-bDU"/>
                         <outlet property="nameLbl" destination="eu1-3t-l8w" id="j6F-DH-8ys"/>
                         <outlet property="surnameLbl" destination="gii-xh-BPs" id="BbP-TD-mrA"/>
+                        <outlet property="userImage" destination="mQI-KU-0bs" id="kS0-SP-XAn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCX-Vm-OGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -373,6 +374,9 @@
                                 <rect key="frame" x="25" y="246" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Choose image"/>
+                                <connections>
+                                    <action selector="chooseImage:" destination="K46-Br-mOM" eventType="touchUpInside" id="znG-CD-cls"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -395,6 +399,7 @@
                         <outlet property="pageHeader" destination="hOf-6W-DmC" id="TPv-g2-qoB"/>
                         <outlet property="passwordField" destination="es0-gW-2Xw" id="iud-Yz-G1A"/>
                         <outlet property="surnameField" destination="Ibd-33-3CH" id="bZe-Fu-HCI"/>
+                        <outlet property="userImage" destination="qdM-uT-KP9" id="fwO-ac-wR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXy-yZ-9Wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
