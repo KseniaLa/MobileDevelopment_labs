@@ -12,6 +12,8 @@
 		844551C42218743A001A1367 /* AddEditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551C32218743A001A1367 /* AddEditUserViewController.swift */; };
 		844551C62218A4BB001A1367 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551C52218A4BB001A1367 /* User.swift */; };
 		844551C82218A57E001A1367 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551C72218A57E001A1367 /* AppData.swift */; };
+		84DB06A82219B0F5002E7AF2 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB06A72219B0F5002E7AF2 /* AppUser.swift */; };
+		84DB06AA2219B52D002E7AF2 /* DataAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB06A92219B52D002E7AF2 /* DataAccess.swift */; };
 		84F8A14A22105A2800C76C82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A14922105A2800C76C82 /* AppDelegate.swift */; };
 		84F8A14C22105A2800C76C82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F8A14B22105A2800C76C82 /* ViewController.swift */; };
 		84F8A14F22105A2800C76C82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F8A14D22105A2800C76C82 /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		844551C32218743A001A1367 /* AddEditUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditUserViewController.swift; sourceTree = "<group>"; };
 		844551C52218A4BB001A1367 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		844551C72218A57E001A1367 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		84DB06A72219B0F5002E7AF2 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		84DB06A92219B52D002E7AF2 /* DataAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccess.swift; sourceTree = "<group>"; };
 		84F8A14622105A2800C76C82 /* iOSLab1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSLab1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F8A14922105A2800C76C82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F8A14B22105A2800C76C82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				844551BF22187046001A1367 /* StateContainer.swift */,
 				844551C52218A4BB001A1367 /* User.swift */,
 				844551C72218A57E001A1367 /* AppData.swift */,
+				84DB06A72219B0F5002E7AF2 /* AppUser.swift */,
+				84DB06A92219B52D002E7AF2 /* DataAccess.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,7 +114,6 @@
 				91133A0DC05E2A77456CACF9 /* Pods-iOSLab1.debug.xcconfig */,
 				151A9DDE07797809D003C2DF /* Pods-iOSLab1.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -234,12 +239,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DB06A82219B0F5002E7AF2 /* AppUser.swift in Sources */,
 				84F8A14C22105A2800C76C82 /* ViewController.swift in Sources */,
 				844551C2221870C5001A1367 /* UsersListViewController.swift in Sources */,
 				844551C62218A4BB001A1367 /* User.swift in Sources */,
 				84F8A14A22105A2800C76C82 /* AppDelegate.swift in Sources */,
 				844551C42218743A001A1367 /* AddEditUserViewController.swift in Sources */,
 				844551C022187046001A1367 /* StateContainer.swift in Sources */,
+				84DB06AA2219B52D002E7AF2 /* DataAccess.swift in Sources */,
 				844551C82218A57E001A1367 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

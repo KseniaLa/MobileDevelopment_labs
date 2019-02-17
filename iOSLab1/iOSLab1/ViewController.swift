@@ -15,16 +15,22 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var passwordField: UITextField!
     
+    @IBAction func goToREgistration(_ sender: Any) {
+        setRegistrationMode()
+    }
+    
     @IBAction func signIn(_ sender: Any) {
-        let login = loginField.text
-        let password = passwordField.text
+        let login = loginField!.text
+        let password = passwordField!.text
         
         if login!.count == 0 {
             showWarningAlert(title: "Invalid", message: "Username can't be empty", actionTitle: "Got it")
         } else if password!.count == 0 {
             showWarningAlert(title: "Invalid", message: "Password can't be empty", actionTitle: "Got it")
         } else {
-            performSegue(withIdentifier: "showUsers", sender: self)
+            if (checkUserExists(login: login!, password: password!)){
+                performSegue(withIdentifier: "showUsers", sender: self)
+            }
         }
     }
     
@@ -44,9 +50,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var realm = try! Realm()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        _ = try! Realm()
+        print(Realm.Configuration.defaultConfiguration.fileURL ?? "undefined")
     }
 
 

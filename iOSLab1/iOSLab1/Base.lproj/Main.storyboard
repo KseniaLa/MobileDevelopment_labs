@@ -53,6 +53,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="goToREgistration:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A4r-uP-HKA"/>
                                     <segue destination="K46-Br-mOM" kind="show" id="HCZ-x0-jqa"/>
                                 </connections>
                             </button>
@@ -256,6 +257,9 @@
                                     <segment title="Man"/>
                                     <segment title="Woman"/>
                                 </segments>
+                                <connections>
+                                    <action selector="showUserList:" destination="K46-Br-mOM" eventType="valueChanged" id="5PM-zk-1jB"/>
+                                </connections>
                             </segmentedControl>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="zAL-ho-GhS">
                                 <rect key="frame" x="16" y="357" width="343" height="82"/>
@@ -316,6 +320,17 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addressField" destination="cLp-vm-DHv" id="6s9-b7-Bdo"/>
+                        <outlet property="birthDatePicker" destination="zAL-ho-GhS" id="25c-AP-ea9"/>
+                        <outlet property="confPasswordField" destination="Gh8-2n-lCY" id="5Bk-B6-07t"/>
+                        <outlet property="genderSwitch" destination="iD7-bi-w6m" id="3yk-qP-o4P"/>
+                        <outlet property="loginField" destination="sUt-GS-6Cu" id="mGv-Vm-6kJ"/>
+                        <outlet property="nameField" destination="7un-2Z-h2U" id="xri-qZ-QDu"/>
+                        <outlet property="pageHeader" destination="hOf-6W-DmC" id="TPv-g2-qoB"/>
+                        <outlet property="passwordField" destination="es0-gW-2Xw" id="iud-Yz-G1A"/>
+                        <outlet property="surnameField" destination="Ibd-33-3CH" id="bZe-Fu-HCI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXy-yZ-9Wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -344,6 +359,6 @@
         <image name="iconfinder_icon-136-document-edit_314251" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hwL-uW-RzL"/>
+        <segue reference="HCZ-x0-jqa"/>
     </inferredMetricsTieBreakers>
 </document>

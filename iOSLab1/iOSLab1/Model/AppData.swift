@@ -8,6 +8,15 @@
 
 import Foundation
 
-var user = Userr(name: "Bob", login: "hello")
+var currentUser: User = User()
 
-var users: [Userr] = [Userr(name: "Bob", login: "hello"), Userr(name: "Tom", login: "orange"), Userr(name: "Lisa", login: "girl")]
+var users: [User] = []
+
+func checkUserExists(login: String, password: String) -> Bool{
+    let users = getUserByLoginPass(login: login, password: password)
+    return users.count != 0
+}
+
+func getUsers() {
+    users = getAllUsers()
+}

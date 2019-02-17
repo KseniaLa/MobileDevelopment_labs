@@ -29,11 +29,16 @@ class UsersListViewController: UIViewController, UITableViewDelegate, UITableVie
         performSegue(withIdentifier: "addUser", sender: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        getUsers()
+        userList.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loginLbl.text = user.login
-        nameLbl.text = user.name
+        loginLbl.text = currentUser.login
+        nameLbl.text = currentUser.name
     }
     
 
