@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8438460B221A006200903571 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438460A221A006200903571 /* DetailsViewController.swift */; };
+		843998A4221A8B8600DC6437 /* PictureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843998A3221A8B8600DC6437 /* PictureCollectionViewController.swift */; };
 		844551C022187046001A1367 /* StateContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551BF22187046001A1367 /* StateContainer.swift */; };
 		844551C2221870C5001A1367 /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551C1221870C5001A1367 /* UsersListViewController.swift */; };
 		844551C42218743A001A1367 /* AddEditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844551C32218743A001A1367 /* AddEditUserViewController.swift */; };
@@ -27,6 +28,7 @@
 		151A9DDE07797809D003C2DF /* Pods-iOSLab1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSLab1.release.xcconfig"; path = "Target Support Files/Pods-iOSLab1/Pods-iOSLab1.release.xcconfig"; sourceTree = "<group>"; };
 		1F9A0971DA4E4326A3ED126C /* Pods_iOSLab1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSLab1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8438460A221A006200903571 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		843998A3221A8B8600DC6437 /* PictureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewController.swift; sourceTree = "<group>"; };
 		844551BF22187046001A1367 /* StateContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateContainer.swift; sourceTree = "<group>"; };
 		844551C1221870C5001A1367 /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
 		844551C32218743A001A1367 /* AddEditUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditUserViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				84F8A14922105A2800C76C82 /* AppDelegate.swift */,
 				844551C1221870C5001A1367 /* UsersListViewController.swift */,
 				8438460A221A006200903571 /* DetailsViewController.swift */,
+				843998A3221A8B8600DC6437 /* PictureCollectionViewController.swift */,
 				84F8A14B22105A2800C76C82 /* ViewController.swift */,
 				844551C32218743A001A1367 /* AddEditUserViewController.swift */,
 				844551BE22187018001A1367 /* Model */,
@@ -249,6 +252,7 @@
 				84F8A14A22105A2800C76C82 /* AppDelegate.swift in Sources */,
 				844551C42218743A001A1367 /* AddEditUserViewController.swift in Sources */,
 				844551C022187046001A1367 /* StateContainer.swift in Sources */,
+				843998A4221A8B8600DC6437 /* PictureCollectionViewController.swift in Sources */,
 				84DB06AA2219B52D002E7AF2 /* DataAccess.swift in Sources */,
 				844551C82218A57E001A1367 /* AppData.swift in Sources */,
 				8438460B221A006200903571 /* DetailsViewController.swift in Sources */,

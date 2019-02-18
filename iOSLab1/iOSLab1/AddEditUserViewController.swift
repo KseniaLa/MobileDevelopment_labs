@@ -23,28 +23,6 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var pageHeader: UINavigationItem!
     
-    var imagePicker = UIImagePickerController()
-    
-    @IBAction func chooseImage(_ sender: Any) {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            print("Button capture")
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum;
-            imagePicker.allowsEditing = false
-            
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-    }
-    
-    @objc func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
-        self.dismiss(animated: true, completion: { () -> Void in
-            
-        })
-        
-        userImage.image = image
-    }
-    
     @IBAction func showUserList(_ sender: Any) {
         let login = loginField.text
         let name = nameField.text
@@ -109,14 +87,12 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imagePicker.delegate = self
-        
         if (isRegistration){
-            userImage.image = UIImage(named: "user")
+            userImage.image = UIImage(named: currentImage)
             pageHeader.title = "Registration"
         }
         else if (isAddition){
-            userImage.image = UIImage(named: "user")
+            userImage.image = UIImage(named: currentImage)
             pageHeader.title = "Add User"
         }
         else if (isEditingMode){

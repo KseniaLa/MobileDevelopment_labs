@@ -12,6 +12,10 @@ var currentUser: User = User()
 
 var users: [User] = []
 
+let images: [String] = ["flower", "key", "tree", "sun"]
+
+var currentImage = "user"
+
 func checkUserExists(login: String, password: String) -> Bool{
     let users = getUserByLoginPass(login: login, password: password)
     return users.count != 0
