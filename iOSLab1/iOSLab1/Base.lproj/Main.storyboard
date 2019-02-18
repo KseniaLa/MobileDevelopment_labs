@@ -356,6 +356,7 @@
                                     <segment title="Woman"/>
                                 </segments>
                                 <connections>
+                                    <action selector="changeGender:" destination="K46-Br-mOM" eventType="valueChanged" id="xhl-l1-gJr"/>
                                     <action selector="showUserList:" destination="K46-Br-mOM" eventType="valueChanged" id="5PM-zk-1jB"/>
                                 </connections>
                             </segmentedControl>

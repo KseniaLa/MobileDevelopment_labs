@@ -23,6 +23,10 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var pageHeader: UINavigationItem!
     
+    @IBAction func changeGender(_ sender: Any) {
+        
+    }
+    
     @IBAction func cacheTempResults(_ sender: Any) {
         isCached = true
         let login = loginField.text
