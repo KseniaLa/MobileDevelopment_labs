@@ -48,14 +48,16 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         isAuthorized = false
+        currentImage = defaultImage
+        currentUser = User()
+        isCached = false
         loginField.text = ""
         passwordField.text = ""
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentImage = defaultImage
-        currentUser = User()
+        
         _ = try! Realm()
         print(Realm.Configuration.defaultConfiguration.fileURL ?? "undefined")
     }
