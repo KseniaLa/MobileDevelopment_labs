@@ -8,31 +8,30 @@
 
 import UIKit
 
-class AddEditUserViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class AddEditUserViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var surnameField: UITextField!
-    @IBOutlet weak var genderSwitch: UISegmentedControl!
     @IBOutlet weak var birthDatePicker: UIDatePicker!
     @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confPasswordField: UITextField!
     
+    @IBOutlet weak var chooseButton: UIButton!
+    @IBOutlet weak var genderSelect: UIPickerView!
+    var selectOptions: [String] = []
+    
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var pageHeader: UINavigationItem!
-    
-    @IBAction func changeGender(_ sender: Any) {
-        
-    }
     
     @IBAction func cacheTempResults(_ sender: Any) {
         isCached = true
         let login = loginField.text
         let name = nameField.text
         let surname = surnameField.text
-        let gender = genderSwitch.selectedSegmentIndex == 0 ? "Man" : "Woman"
+        let gender = genderSelect.selectedRow(inComponent: 0) == 0 ? "Man" : "Woman"
         let dateOfBirth = birthDatePicker.date
         let address = addressField.text
         let password = passwordField.text
@@ -51,7 +50,7 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         let login = loginField.text
         let name = nameField.text
         let surname = surnameField.text
-        let gender = genderSwitch.selectedSegmentIndex == 0 ? "Man" : "Woman"
+        let gender = genderSelect.selectedRow(inComponent: 0) == 0 ? "Man" : "Woman"
         let dateOfBirth = birthDatePicker.date
         let address = addressField.text
         let password = passwordField.text
@@ -123,6 +122,11 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.genderSelect.delegate = self
+        self.genderSelect.dataSource = self
+        
+        selectOptions = ["Man", "Woman"]
+        
         if (isRegistration){
             if (isCached){
                 fillWithChachedValue()
@@ -146,7 +150,7 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
                 loginField.text = currentUser.login
                 nameField.text = currentUser.name
                 surnameField.text = currentUser.surname
-                genderSwitch.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
+                genderSelect.selectRow(currentUser.gender == "Man" ? 0 : 1, inComponent: 0, animated: true)
                 birthDatePicker.date = currentUser.dateOfBirth ?? Date()
                 addressField.text = currentUser.address
                 passwordField.text = currentUser.password
@@ -164,15 +168,29 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         isCached = false
     }
     
+    
+    
     func fillWithChachedValue(){
         loginField.text = cachedUser.login
         nameField.text = cachedUser.name
         surnameField.text = cachedUser.surname
-        genderSwitch.selectedSegmentIndex = cachedUser.gender == "Man" ? 0 : 1
+        genderSelect.selectRow(cachedUser.gender == "Man" ? 0 : 1, inComponent: 0, animated: true)
         birthDatePicker.date = cachedUser.dateOfBirth ?? Date()
         addressField.text = cachedUser.address
         passwordField.text = cachedUser.password
         confPasswordField.text = cachedUser.password
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return selectOptions.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return selectOptions[row]
     }
     
 
