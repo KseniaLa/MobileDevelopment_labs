@@ -12,7 +12,7 @@ var currentUser: User = User()
 
 var users: [User] = []
 
-let images: [String] = ["flower", "key", "tree", "sun"]
+let images: [String] = ["flower", "key", "tree", "sun", "leave", "nature", "rose", "smile", "cat"]
 
 let defaultImage = "user"
 
