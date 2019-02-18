@@ -45,6 +45,7 @@ func updateUser(login: String, user: User) {
             usr.gender = user.gender
             usr.dateOfBirth = user.dateOfBirth
             usr.address = user.address
+            usr.avatar = user.avatar
         }
     }
 }

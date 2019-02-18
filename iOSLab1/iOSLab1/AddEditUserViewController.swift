@@ -78,16 +78,27 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         tempUser.gender = gender
         tempUser.address = address
         tempUser.password = password
-        tempUser.avatar = currentImage == defaultImage ? nil : currentImage
+        
         
         if (isRegistration){
+            tempUser.avatar = currentImage == defaultImage ? nil : currentImage
             addUser(user: tempUser)
             currentUser = tempUser
         }
         else if (isAddition){
+            tempUser.avatar = currentImage == defaultImage ? nil : currentImage
             addUser(user: tempUser)
         }
         else if (isEditingMode){
+            if (currentUser.avatar == nil){
+                tempUser.avatar = currentImage == defaultImage ? nil : currentImage
+            }
+            else if (currentImage != defaultImage){
+                tempUser.avatar = currentImage
+            }
+            else {
+                tempUser.avatar = currentUser.avatar
+            }
             updateUser(login: currentUser.login!, user: tempUser)
             currentUser = tempUser
         }
