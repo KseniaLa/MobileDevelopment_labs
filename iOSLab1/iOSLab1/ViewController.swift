@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        currentImage = defaultImage
         _ = try! Realm()
         print(Realm.Configuration.defaultConfiguration.fileURL ?? "undefined")
     }

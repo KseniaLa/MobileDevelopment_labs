@@ -30,9 +30,13 @@ class DetailsViewController: UIViewController {
             birthLbl.text = "date"
             addressLbl.text = currentUser.address
             
-            if (currentUser.avatar == nil){
-                userImage.image = UIImage(named: "user")
-            }        }
+            if (currentUser.avatar == nil) {
+                userImage.image = UIImage(named: defaultImage)
+            }
+            else {
+                userImage.image = UIImage(named: currentUser.avatar ?? defaultImage)
+            }
+        }
         else {
             loginLbl.text = users[selectedUserIndex].login
             nameLbl.text = users[selectedUserIndex].name
@@ -43,7 +47,11 @@ class DetailsViewController: UIViewController {
             
             if (users[selectedUserIndex].avatar == nil){
                 userImage.image = UIImage(named: "user")
-            }        }
+            }
+            else {
+                userImage.image = UIImage(named: users[selectedUserIndex].avatar ?? defaultImage)
+            }
+        }
     }
     
 

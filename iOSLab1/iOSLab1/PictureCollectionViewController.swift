@@ -48,7 +48,7 @@ class PictureCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-        let imageview: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 170, height: 170));
+        let imageview: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 188, height: 188));
         
         let img : UIImage = UIImage(named: images[indexPath.row])!
         imageview.image = img

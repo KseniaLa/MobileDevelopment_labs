@@ -14,7 +14,13 @@ var users: [User] = []
 
 let images: [String] = ["flower", "key", "tree", "sun"]
 
+let defaultImage = "user"
+
 var currentImage = "user"
+
+var isCached = false
+
+var cachedUser = User()
 
 func checkUserExists(login: String, password: String) -> Bool{
     let users = getUserByLoginPass(login: login, password: password)

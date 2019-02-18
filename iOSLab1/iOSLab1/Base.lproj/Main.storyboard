@@ -375,6 +375,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Choose Image"/>
                                 <connections>
+                                    <action selector="cacheTempResults:" destination="K46-Br-mOM" eventType="touchUpInside" id="chb-xy-dfl"/>
                                     <segue destination="9bd-mh-8j5" kind="show" id="Q8f-mk-Nst"/>
                                 </connections>
                             </button>

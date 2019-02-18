@@ -43,8 +43,12 @@ class UsersListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentImage = defaultImage
         if (currentUser.avatar == nil){
-            userImage.image = UIImage(named: "user")
+            userImage.image = UIImage(named: currentImage)
+        }
+        else {
+            userImage.image = UIImage(named: currentUser.avatar ?? defaultImage)
         }
         loginLbl.text = currentUser.login
         nameLbl.text = currentUser.name

@@ -23,6 +23,26 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var pageHeader: UINavigationItem!
     
+    @IBAction func cacheTempResults(_ sender: Any) {
+        isCached = true
+        let login = loginField.text
+        let name = nameField.text
+        let surname = surnameField.text
+        let gender = genderSwitch.selectedSegmentIndex == 0 ? "Man" : "Woman"
+        let dateOfBirth = birthDatePicker.date
+        let address = addressField.text
+        let password = passwordField.text
+        
+        cachedUser = User()
+        cachedUser.name = name
+        cachedUser.surname = surname
+        cachedUser.login = login
+        cachedUser.dateOfBirth = dateOfBirth
+        cachedUser.gender = gender
+        cachedUser.address = address
+        cachedUser.password = password
+    }
+    
     @IBAction func showUserList(_ sender: Any) {
         let login = loginField.text
         let name = nameField.text
@@ -58,6 +78,7 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         tempUser.gender = gender
         tempUser.address = address
         tempUser.password = password
+        tempUser.avatar = currentImage == defaultImage ? nil : currentImage
         
         if (isRegistration){
             addUser(user: tempUser)
@@ -88,28 +109,55 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         super.viewDidLoad()
         
         if (isRegistration){
+            if (isCached){
+                fillWithChachedValue()
+            }
             userImage.image = UIImage(named: currentImage)
             pageHeader.title = "Registration"
         }
         else if (isAddition){
+            if (isCached){
+                fillWithChachedValue()
+            }
             userImage.image = UIImage(named: currentImage)
             pageHeader.title = "Add User"
         }
         else if (isEditingMode){
             pageHeader.title = "Edit User"
-            loginField.text = currentUser.login
-            nameField.text = currentUser.name
-            surnameField.text = currentUser.surname
-            genderSwitch.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
-            birthDatePicker.date = currentUser.dateOfBirth ?? Date()
-            addressField.text = currentUser.address
-            passwordField.text = currentUser.password
-            confPasswordField.text = currentUser.password
+            if (isCached){
+                fillWithChachedValue()
+            }
+            else {
+                loginField.text = currentUser.login
+                nameField.text = currentUser.name
+                surnameField.text = currentUser.surname
+                genderSwitch.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
+                birthDatePicker.date = currentUser.dateOfBirth ?? Date()
+                addressField.text = currentUser.address
+                passwordField.text = currentUser.password
+                confPasswordField.text = currentUser.password
+            }
             
-            if (currentUser.avatar == nil){
-                userImage.image = UIImage(named: "user")
+            if (currentUser.avatar == nil || currentImage != defaultImage){
+                userImage.image = UIImage(named: currentImage)
+            }
+            else {
+                userImage.image = UIImage(named: currentUser.avatar ?? defaultImage)
             }
         }
+        
+        isCached = false
+    }
+    
+    func fillWithChachedValue(){
+        loginField.text = cachedUser.login
+        nameField.text = cachedUser.name
+        surnameField.text = cachedUser.surname
+        genderSwitch.selectedSegmentIndex = cachedUser.gender == "Man" ? 0 : 1
+        birthDatePicker.date = cachedUser.dateOfBirth ?? Date()
+        addressField.text = cachedUser.address
+        passwordField.text = cachedUser.password
+        confPasswordField.text = cachedUser.password
     }
     
 
