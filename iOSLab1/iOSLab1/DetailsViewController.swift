@@ -13,21 +13,25 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var loginLbl: UILabel!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var surnameLbl: UILabel!
-    @IBOutlet weak var genderLbl: UISegmentedControl!
+    
     @IBOutlet weak var birthLbl: UILabel!
     @IBOutlet weak var addressLbl: UILabel!
     
+    @IBOutlet weak var genderLbl: UILabel!
     @IBOutlet weak var userImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
 
         if (currentUserFocus) {
             loginLbl.text = currentUser.login
             nameLbl.text = currentUser.name
             surnameLbl.text = currentUser.surname
-            genderLbl.selectedSegmentIndex = currentUser.gender == "Man" ? 0 : 1
-            birthLbl.text = "date"
+            genderLbl.text = currentUser.gender
+            birthLbl.text = dateFormatter.string(from: currentUser.dateOfBirth!)
             addressLbl.text = currentUser.address
             
             if (currentUser.avatar == nil) {
@@ -41,8 +45,8 @@ class DetailsViewController: UIViewController {
             loginLbl.text = users[selectedUserIndex].login
             nameLbl.text = users[selectedUserIndex].name
             surnameLbl.text = users[selectedUserIndex].surname
-            genderLbl.selectedSegmentIndex = users[selectedUserIndex].gender == "Man" ? 0 : 1
-            birthLbl.text = "date"
+            genderLbl.text = users[selectedUserIndex].gender
+            birthLbl.text = dateFormatter.string(from: users[selectedUserIndex].dateOfBirth!)
             addressLbl.text = users[selectedUserIndex].address
             
             if (users[selectedUserIndex].avatar == nil){
