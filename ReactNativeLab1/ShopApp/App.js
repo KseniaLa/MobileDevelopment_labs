@@ -1,21 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Grid from 'react-native-grid-component';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+import HomeScreen from './HomeScreen';
+import DetailsScreen from './DetailsScreen';
+import CartScreen from './CartScreen'
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hello React Native!</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const MainNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Details: DetailsScreen,
+  Cart: CartScreen
 });
+
+const App = createAppContainer(MainNavigator);
+
+export default App;
