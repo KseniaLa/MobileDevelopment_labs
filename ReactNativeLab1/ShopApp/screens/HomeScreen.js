@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 import IconBadge from 'react-native-icon-badge';
 import Grid from 'react-native-grid-component';
@@ -8,7 +8,7 @@ import appData from './../data';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cartCount: 5, isTabs: true, data: appData };
+    this.state = { cartCount: 5, isTabs: false, data: appData };
   }
 
   componentDidMount() {
@@ -77,36 +77,30 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  renderGridItem = (data, i) => {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={[{ backgroundColor: data }, styles.gridItem]} key={i}>
-        <Button title="Go"
-          onPress={() => navigate('Details', { name: 'Jane' })}>
-        </Button>
-      </View>
-    )
-  }
-
-  renderListItem = ({data}) => {
-    //const { navigate } = this.props.navigation;
-    return (
-        <Text>{data.name}</Text>
-    )
-  }
-
   _keyExtractor = (item, index) => item.id;
 
-  renderListItem = ({item}) => (
+  renderListItem = ({ item }) => (
     <ListItem
       id={item.id}
       onPressItem={this._onPressItem}
-      title={item.name}
+      name={item.name}
+      description={item.description}
+      price={item.price}
+      count={item.count}
     />
   );
 
-  _onPressItem = () => {
-    alert('lol');
+  renderGridItem = (item) => (
+    <GridItem
+      id={item.id}
+      onPressItem={this._onPressItem}
+      item={item}
+    />
+  );
+
+  _onPressItem = (itemId) => {
+    const { navigate } = this.props.navigation;
+    navigate('Details', { id: itemId })
   };
 
   renderPlaceholder = i => <View style={styles.gridItem} key={i} />;
@@ -119,13 +113,14 @@ export default class HomeScreen extends React.Component {
         style={styles.list}
         renderItem={this.renderGridItem}
         renderPlaceholder={this.renderPlaceholder}
-        data={['black', 'white', 'red', 'green', 'blue', 'orange', 'yellow', 'green']}
+        data={this.state.data}
         itemsPerRow={3}
       />
     }
     else {
       itemList = <FlatList
         data={this.state.data}
+        style={{backgroundColor: "#dcdcdc"}}
         keyExtractor={this._keyExtractor}
         renderItem={this.renderListItem}
       />
@@ -142,11 +137,42 @@ class ListItem extends React.PureComponent {
   };
 
   render() {
-    const textColor = 'black';
     return (
       <TouchableOpacity onPress={this._onPress}>
-        <View>
-          <Text style={{color: textColor}}>{this.props.title}</Text>
+        <View style={styles.listItem} key={this.props.id}>
+          <Image
+            source={require('./../images/empty-image.png')}
+            style={{ width: 100, height: 100, margin: 5 }}
+          />
+          <View style={styles.listItemInfo}><Text numberOfLines={1} style={styles.listName}>{this.props.name}</Text>
+            <Text numberOfLines={3} style={styles.listDescription}>{this.props.description}</Text>
+            <Text style={styles.price}>{this.props.price} $</Text>
+            <Text style={styles.count}>{this.props.count}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
+
+class GridItem extends React.PureComponent {
+  _onPress = () => {
+    this.props.onPressItem(this.props.id);
+  };
+
+  render() {
+    let item = this.props.item;
+    return (
+      <TouchableOpacity onPress={this._onPress}>
+        <View style={[{ borderWidth: 1, borderColor: "#ff0000" }, styles.gridItem]} key={this.props.id}>
+          <Image
+            source={require('./../images/empty-image.png')}
+            style={{ width: 50, height: 50 }}
+          />
+          <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
+          <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
+          <Text style={styles.price}>{item.price} $</Text>
+          <Text style={styles.count}>{item.count}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -164,15 +190,61 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    height: 160,
-    margin: 1
+    height: 190,
+    margin: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   listItem: {
     flex: 1,
-    height: 60,
-    margin: 1
+    flexDirection: 'row',
+    height: 130,
+    margin: 1,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: "white"
+  },
+  listItemInfo: {
+    flex: 1,
+    flexDirection: 'column'
   },
   list: {
-    flex: 1
+    flex: 1,
+    alignItems: 'stretch',
   },
+  name: {
+    padding: 3,
+    fontWeight: 'bold',
+    flexWrap: "wrap",
+    width: 100,
+    textAlign: "center"
+  },
+  listName: {
+    padding: 3,
+    fontWeight: 'bold',
+    flexWrap: "wrap",
+    width: '80%',
+  },
+  description: {
+    flex: 1,
+    width: 80,
+    flexWrap: "wrap",
+    fontSize: 10
+  },
+  listDescription: {
+    flex: 1,
+    width: '80%',
+    flexWrap: "wrap",
+    fontSize: 10
+  },
+  price: {
+    color: "#0000ff",
+    padding: 5,
+  },
+  count: {
+    backgroundColor: "green",
+    width: '100%',
+    textAlign: "center",
+    color: "#ffffff"
+  }
 }); 
