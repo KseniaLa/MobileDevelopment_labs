@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 import IconBadge from 'react-native-icon-badge';
 import Grid from 'react-native-grid-component';
+import appData from './../data';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cartCount: 5, isTabs: true };
+    this.state = { cartCount: 5, isTabs: true, data: appData };
   }
 
   componentDidMount() {
@@ -76,10 +77,10 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  renderItem = (data, i) => {
+  renderGridItem = (data, i) => {
     const { navigate } = this.props.navigation;
     return (
-      <View style={[{ backgroundColor: data }, styles.item]} key={i}>
+      <View style={[{ backgroundColor: data }, styles.gridItem]} key={i}>
         <Button title="Go"
           onPress={() => navigate('Details', { name: 'Jane' })}>
         </Button>
@@ -87,7 +88,28 @@ export default class HomeScreen extends React.Component {
     )
   }
 
-  renderPlaceholder = i => <View style={styles.item} key={i} />;
+  renderListItem = ({data}) => {
+    //const { navigate } = this.props.navigation;
+    return (
+        <Text>{data.name}</Text>
+    )
+  }
+
+  _keyExtractor = (item, index) => item.id;
+
+  renderListItem = ({item}) => (
+    <ListItem
+      id={item.id}
+      onPressItem={this._onPressItem}
+      title={item.name}
+    />
+  );
+
+  _onPressItem = () => {
+    alert('lol');
+  };
+
+  renderPlaceholder = i => <View style={styles.gridItem} key={i} />;
 
   render() {
     let isTabs = this.state.isTabs;
@@ -95,7 +117,7 @@ export default class HomeScreen extends React.Component {
     if (isTabs) {
       itemList = <Grid
         style={styles.list}
-        renderItem={this.renderItem}
+        renderItem={this.renderGridItem}
         renderPlaceholder={this.renderPlaceholder}
         data={['black', 'white', 'red', 'green', 'blue', 'orange', 'yellow', 'green']}
         itemsPerRow={3}
@@ -103,12 +125,30 @@ export default class HomeScreen extends React.Component {
     }
     else {
       itemList = <FlatList
-        data={[{ key: 'a' }, { key: 'b' }]}
-        renderItem={({ item }) => <Text>{item.key}</Text>}
+        data={this.state.data}
+        keyExtractor={this._keyExtractor}
+        renderItem={this.renderListItem}
       />
     }
     return (
       <>{itemList}</>
+    );
+  }
+}
+
+class ListItem extends React.PureComponent {
+  _onPress = () => {
+    this.props.onPressItem(this.props.id);
+  };
+
+  render() {
+    const textColor = 'black';
+    return (
+      <TouchableOpacity onPress={this._onPress}>
+        <View>
+          <Text style={{color: textColor}}>{this.props.title}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -122,9 +162,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 1
   },
-  item: {
+  gridItem: {
     flex: 1,
     height: 160,
+    margin: 1
+  },
+  listItem: {
+    flex: 1,
+    height: 60,
     margin: 1
   },
   list: {
