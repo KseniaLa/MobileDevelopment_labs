@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements';
 import IconBadge from 'react-native-icon-badge';
 import Grid from 'react-native-grid-component';
@@ -20,9 +20,9 @@ export default class HomeScreen extends React.Component {
 
   toggleListAppearance() {
     let isTabsVal = this.state.isTabs;
-    this.setState({ isTabs: false });
+    this.setState({ isTabs: !isTabsVal });
     this.props.navigation.setParams({
-      listView: false,
+      listView: !isTabsVal,
     });
   }
 
@@ -90,15 +90,25 @@ export default class HomeScreen extends React.Component {
   renderPlaceholder = i => <View style={styles.item} key={i} />;
 
   render() {
-
-    return (
-      <Grid
+    let isTabs = this.state.isTabs;
+    let itemList;
+    if (isTabs) {
+      itemList = <Grid
         style={styles.list}
         renderItem={this.renderItem}
         renderPlaceholder={this.renderPlaceholder}
         data={['black', 'white', 'red', 'green', 'blue', 'orange', 'yellow', 'green']}
         itemsPerRow={3}
       />
+    }
+    else {
+      itemList = <FlatList
+        data={[{ key: 'a' }, { key: 'b' }]}
+        renderItem={({ item }) => <Text>{item.key}</Text>}
+      />
+    }
+    return (
+      <>{itemList}</>
     );
   }
 }
