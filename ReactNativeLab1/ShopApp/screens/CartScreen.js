@@ -18,6 +18,19 @@ export default class CartScreen extends React.Component {
     )
   }
 
+
+
+  deleteItemFromCart = (itemId, count) => {
+    let updateCount = (count) => {
+      db.transaction(tx => {
+        tx.executeSql('update items set count = count + ? where id = ?', [count, itemId], (_, res) => this.update(), (_, res) => console.log(res));
+      })
+    }
+    db.transaction(tx => {
+      tx.executeSql('delete from cart where item_id = ?', [itemId], (_, res) => {updateCount(count); console.log('lol')}, (_, res) => console.log(res));
+    })
+  };
+
   update() {
     db.transaction(tx => {
       tx.executeSql(
@@ -38,6 +51,7 @@ export default class CartScreen extends React.Component {
       price={item.price}
       count={item.booked}
       image={item.image}
+      onPressDelete={this.deleteItemFromCart}
     />
   );
 
@@ -67,6 +81,10 @@ class ListItem extends React.PureComponent {
     this.props.onPressItem(this.props.id);
   }
 
+  onPressDelete = () => {
+    this.props.onPressDelete(this.props.id, this.props.count);
+  }
+
   render() {
     return (
       <TouchableOpacity onPress={this._onPress}>
@@ -89,7 +107,7 @@ class ListItem extends React.PureComponent {
             name="trash"
             type='font-awesome'
             size={21}
-            onPress={() => alert('lol')}
+            onPress={() => this.onPressDelete()}
           />
         </View>
       </TouchableOpacity>
