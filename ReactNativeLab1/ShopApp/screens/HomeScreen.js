@@ -55,9 +55,9 @@ export default class HomeScreen extends React.Component {
       );
       //tx.executeSql('drop table items', []);
       //tx.executeSql('delete from items where id = 3', [], null, (_, res) => console.log(res));
-      // tx.executeSql('select * from items', [], (_, { rows }) =>
-      //     console.log(JSON.stringify(rows))
-      //   );
+      tx.executeSql('select * from cart', [], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
 
       for (let i = 0; i < appData.length; i++){
         tx.executeSql('insert into items (id, name, description, image, price, count) values (?, ?, ?, ?, ?, ?)', [appData[i].id, appData[i].name, appData[i].description, appData[i].image, appData[i].price, appData[i].count]);

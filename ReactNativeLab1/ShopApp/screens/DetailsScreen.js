@@ -13,9 +13,10 @@ export default class DetailsScreen extends React.Component {
     super(props);
     const { navigation } = this.props;
     const itemId = navigation.getParam('id', 'NO-ID');
-    this.state = { id: itemId, data: {}, count: 1 };
+    const currCount = navigation.getParam('currentCount', 0);
+    this.state = { id: itemId, data: {}, count: currCount == 0 ? 1 : currCount, currentCount: currCount };
   }
-
+ 
   getItemData() {
     db.transaction(tx => {
       tx.executeSql(
@@ -28,7 +29,7 @@ export default class DetailsScreen extends React.Component {
 
   updateItemCount() {
     db.transaction(tx => {
-      tx.executeSql('update items set count = count - ? where id = ?', [this.state.count, this.state.id], null, (_, err) => console.log(err));
+      tx.executeSql('update items set count = count + ? - ? where id = ?', [this.state.currentCount, this.state.count, this.state.id], null, (_, err) => console.log(err));
     });
   }
 
@@ -42,6 +43,16 @@ export default class DetailsScreen extends React.Component {
     });
 
     this.updateCartCount();
+  }
+
+  updateCart() {
+    db.transaction(tx => {
+      tx.executeSql('update cart set count = ? where item_id = ?', [this.state.count, this.state.id],
+        (_, { rows }) => {
+          alert('Count updated');
+          this.updateItemCount();
+        }, (_, err) => alert('Error updating cart'));
+    });
   }
 
   updateCartCount() {
@@ -60,6 +71,7 @@ export default class DetailsScreen extends React.Component {
     this.updateCartCount();
     this.props.navigation.setParams({
       addToCart: this.addToCart.bind(this),
+      updateCart: this.updateCart.bind(this)
     });
   }
 
@@ -113,6 +125,16 @@ export default class DetailsScreen extends React.Component {
               />
             </>
           }
+          {params.isCartItem && 
+            <Icon
+            reverse
+            color='#0000ff'
+            name="check"
+            type='font-awesome'
+            size={21}
+            onPress={() => params.updateCart()}
+          />
+          }
         </View>
       ),
     };
@@ -134,7 +156,7 @@ export default class DetailsScreen extends React.Component {
             type='plus-minus'
             value={this.state.count}
             minValue={1}
-            maxValue={item.count}
+            maxValue={item.count + this.state.currentCount}
             onChange={value => this.setState({ count: value })}
             rounded
             textColor='#B0228C'
@@ -142,7 +164,7 @@ export default class DetailsScreen extends React.Component {
             rightButtonBackgroundColor='#0000ff'
             leftButtonBackgroundColor='#0000ff'
             borderColor='#0000ff'
-            initValue={1}
+            initValue={this.state.count}
           />
           <Text>Model: {item.name}</Text>
           <Text>Description: {item.description}</Text>

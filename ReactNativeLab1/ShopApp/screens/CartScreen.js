@@ -27,7 +27,7 @@ export default class CartScreen extends React.Component {
       })
     }
     db.transaction(tx => {
-      tx.executeSql('delete from cart where item_id = ?', [itemId], (_, res) => {updateCount(count); console.log('lol')}, (_, res) => console.log(res));
+      tx.executeSql('delete from cart where item_id = ?', [itemId], (_, res) => {updateCount(count);}, (_, res) => console.log(res));
     })
   };
 
@@ -55,9 +55,9 @@ export default class CartScreen extends React.Component {
     />
   );
 
-  _onPressItem = (itemId) => {
+  _onPressItem = (itemId, count) => {
     const { navigate } = this.props.navigation;
-    navigate('Details', { id: itemId, isCartItem: true })
+    navigate('Details', { id: itemId, isCartItem: true, currentCount: count })
   };
 
   _keyExtractor = (item) => `${item.id}`; 
@@ -78,7 +78,7 @@ export default class CartScreen extends React.Component {
 
 class ListItem extends React.PureComponent {
   _onPress = () => {
-    this.props.onPressItem(this.props.id);
+    this.props.onPressItem(this.props.id, this.props.count);
   }
 
   onPressDelete = () => {
