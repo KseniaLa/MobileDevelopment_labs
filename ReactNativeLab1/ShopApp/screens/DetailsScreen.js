@@ -3,9 +3,32 @@ import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native'
 import IconBadge from 'react-native-icon-badge';
 import { Icon } from 'react-native-elements';
 import NumericInput from 'react-native-numeric-input';
-import appData from './../data';
+import { Constants, SQLite } from 'expo';
+
+const db = SQLite.openDatabase('shop.db');
 
 export default class DetailsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    const { navigation } = this.props;
+    const itemId = navigation.getParam('id', 'NO-ID');
+    this.state = { id: itemId, data: {}, count: 1 };
+  }
+
+  getItemData() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `select * from items where id = ?;`,
+        [this.state.id],
+        (_, { rows: { _array } }) => this.setState({ data: _array[0] })
+      );
+    });
+  }
+
+  componentDidMount() {
+    this.getItemData();
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
@@ -48,7 +71,7 @@ export default class DetailsScreen extends React.Component {
               />
               <Icon
                 reverse
-                color='#517fa4'
+                color='#0000ff'
                 name="cart-plus"
                 type='font-awesome'
                 size={21}
@@ -62,8 +85,7 @@ export default class DetailsScreen extends React.Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('id', 'NO-ID');
+    let item = this.state.data;
     return (
 
       <ScrollView>
@@ -75,8 +97,8 @@ export default class DetailsScreen extends React.Component {
           <NumericInput
             type='plus-minus'
             minValue={1}
-            maxValue={appData[itemId].count}
-            onChange={value => console.log(value)}
+            maxValue={item.count}
+            onChange={value => this.setState({count: value})}
             rounded
             textColor='#B0228C'
             iconStyle={{ color: 'white' }}
@@ -85,10 +107,10 @@ export default class DetailsScreen extends React.Component {
             borderColor='#0000ff'
             initValue={1}
           />
-          <Text>Model: {appData[itemId].name}</Text>
-          <Text>Description: {appData[itemId].description}</Text>
-          <Text>Price: {appData[itemId].price}</Text>
-          <Text>Available count: {appData[itemId].count}</Text>
+          <Text>Model: {item.name}</Text>
+          <Text>Description: {item.description}</Text>
+          <Text>Price: {item.price}</Text>
+          <Text>Available count: {item.count}</Text>
         </View>
       </ScrollView>
 

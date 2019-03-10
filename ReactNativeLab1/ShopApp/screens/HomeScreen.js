@@ -4,14 +4,50 @@ import { SearchBar, Icon } from 'react-native-elements';
 import IconBadge from 'react-native-icon-badge';
 import Grid from 'react-native-grid-component';
 import appData from './../data';
+import { Constants, SQLite } from 'expo';
+
+const db = SQLite.openDatabase('shop.db');
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cartCount: 5, isTabs: false, data: appData };
+    this.state = { cartCount: 5, isTabs: false, data: [] };
+    this.props.navigation.addListener(
+      'willFocus',
+      payload => {
+        this.update();
+      }
+    )
+  }
+
+  update() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `select * from items;`,
+        [],
+        (_, { rows: { _array } }) => this.setState({ data: _array })
+      );
+    });
   }
 
   componentDidMount() {
+    db.transaction(tx => {
+      tx.executeSql(
+        'create table if not exists items (id integer primary key not null, name text, description text, image text, price integer, count integer);',  [], (_) =>
+        console.log('items ok')
+      );
+      tx.executeSql(
+        'create table if not exists cart (id integer primary key not null, item_id integer, count integer, constraint fk_items foreign key (item_id) references items (id));',  [], (_) =>
+        console.log('cart ok')
+      );
+      tx.executeSql('insert into items (id, name, description, image, price, count) values (1, ?, ?, ?, 300, 30)', ['item2', 'new item', 'default']);
+        tx.executeSql('select * from items', [], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
+    });
+
+    this.update();
+
     this.props.navigation.setParams({
       cartCount: this.state.cartCount,
       toggleListView: this.toggleListAppearance.bind(this),
@@ -81,7 +117,7 @@ export default class HomeScreen extends React.Component {
     };
   }
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item) => `${item.id}`;
 
   renderListItem = ({ item }) => (
     <ListItem
@@ -97,6 +133,7 @@ export default class HomeScreen extends React.Component {
   renderGridItem = (item) => (
     <GridItem
       id={item.id}
+      key={item.id}
       onPressItem={this._onPressItem}
       item={item}
     />
@@ -107,7 +144,7 @@ export default class HomeScreen extends React.Component {
     navigate('Details', { id: itemId, isCartItem: false })
   };
 
-  renderPlaceholder = i => <View style={styles.gridItem} key={i} />;
+  //renderPlaceholder = item => <View style={styles.gridItem} key={item.id} />;
 
   render() {
     let isTabs = this.state.isTabs;
@@ -116,7 +153,7 @@ export default class HomeScreen extends React.Component {
       itemList = <Grid
         style={styles.list}
         renderItem={this.renderGridItem}
-        renderPlaceholder={this.renderPlaceholder}
+        //renderPlaceholder={this.renderPlaceholder}
         data={this.state.data}
         itemsPerRow={3}
       />
@@ -142,8 +179,8 @@ class ListItem extends React.PureComponent {
 
   render() {
     return (
-      <TouchableOpacity onPress={this._onPress}>
-        <View style={styles.listItem} key={this.props.id}>
+      <TouchableOpacity onPress={this._onPress} key={this.props.id}>
+        <View style={styles.listItem} >
           <Image
             source={require('./../images/empty-image.png')}
             style={{ width: 100, height: 100, margin: 5 }}
@@ -167,8 +204,8 @@ class GridItem extends React.PureComponent {
   render() {
     let item = this.props.item;
     return (
-      <TouchableOpacity onPress={this._onPress}>
-        <View style={[styles.gridItem]} key={this.props.id}>
+      <TouchableOpacity onPress={this._onPress} key={this.props.id}>
+        <View style={[styles.gridItem]}>
           <Image
             source={require('./../images/empty-image.png')}
             style={{ width: 50, height: 50 }}

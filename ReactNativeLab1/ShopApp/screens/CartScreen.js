@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import IconBadge from 'react-native-icon-badge';
-import Grid from 'react-native-grid-component';
 import appData from './../data';
 
 export default class CartScreen extends React.Component {
