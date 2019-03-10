@@ -32,7 +32,7 @@ export default class HomeScreen extends React.Component {
     return {
       headerTitle: "Catalog",
       headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: '#1E91FF',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.rowContainer}>
           <Icon
             reverse
-            color='#517fa4'
+            color='#0000ff'
             name={params.listView ? "view-list" : "dashboard"}
             type='material'
             size={21}
@@ -53,7 +53,7 @@ export default class HomeScreen extends React.Component {
             MainElement={
               <Icon
                 reverse
-                color='#517fa4'
+                color='#0000ff'
                 name="shopping-cart"
                 type='font-awesome'
                 size={21}
@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component {
                 right:4,
                 width: 20,
                 height: 20,
-                backgroundColor: '#FF00EE'
+                backgroundColor: '#FF0000'
               }
             }
             Hidden={params.cartCount === 0}
@@ -104,7 +104,7 @@ export default class HomeScreen extends React.Component {
 
   _onPressItem = (itemId) => {
     const { navigate } = this.props.navigation;
-    navigate('Details', { id: itemId })
+    navigate('Details', { id: itemId, isCartItem: false })
   };
 
   renderPlaceholder = i => <View style={styles.gridItem} key={i} />;
@@ -151,7 +151,7 @@ class ListItem extends React.PureComponent {
           <View style={styles.listItemInfo}><Text numberOfLines={1} style={styles.listName}>{this.props.name}</Text>
             <Text numberOfLines={3} style={styles.listDescription}>{this.props.description}</Text>
             <Text style={styles.price}>{this.props.price} $</Text>
-            <Text style={styles.count}>{this.props.count}</Text>
+            <Text style={[{backgroundColor: this.props.count == 0 ? "#ff0000" : "#0000ff"}, styles.count]}>{this.props.count == 0 ? 'missing' : this.props.count}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -168,7 +168,7 @@ class GridItem extends React.PureComponent {
     let item = this.props.item;
     return (
       <TouchableOpacity onPress={this._onPress}>
-        <View style={[{ borderWidth: 1, borderColor: "#ff0000" }, styles.gridItem]} key={this.props.id}>
+        <View style={[styles.gridItem]} key={this.props.id}>
           <Image
             source={require('./../images/empty-image.png')}
             style={{ width: 50, height: 50 }}
@@ -176,7 +176,7 @@ class GridItem extends React.PureComponent {
           <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
           <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
           <Text style={styles.price}>{item.price} $</Text>
-          <Text style={styles.count}>{item.count}</Text>
+          <Text style={[{backgroundColor: item.count == 0 ? "#ff0000" : "#0000ff"}, styles.count]}>{item.count == 0 ? 'missing' : item.count}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   gridItem: {
     flex: 1,
     height: 190,
-    margin: 1,
+    margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   listName: {
-    padding: 3,
     fontWeight: 'bold',
     flexWrap: "wrap",
     width: '80%',
@@ -243,10 +242,11 @@ const styles = StyleSheet.create({
   },
   price: {
     color: "#0000ff",
-    padding: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   count: {
-    backgroundColor: "green",
+    //backgroundColor: "#0000ff",
     width: '100%',
     textAlign: "center",
     color: "#ffffff"

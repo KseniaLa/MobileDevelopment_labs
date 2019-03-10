@@ -10,7 +10,7 @@ export default class DetailsScreen extends React.Component {
     const { params = {} } = navigation.state;
     return {
       headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: '#1E91FF',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
@@ -18,41 +18,44 @@ export default class DetailsScreen extends React.Component {
       },
       headerRight: (
         <View style={styles.rowContainer}>
-          <IconBadge
-            MainElement={
-              <Icon
-                reverse
-                color='#517fa4'
-                name="shopping-cart"
-                type='font-awesome'
-                size={21}
-                onPress={() => navigation.navigate('Cart')}
+          {!params.isCartItem &&
+            <>
+              <IconBadge
+                MainElement={
+                  <Icon
+                    reverse
+                    color='#0000FF'
+                    name="shopping-cart"
+                    type='font-awesome'
+                    size={21}
+                    onPress={() => navigation.navigate('Cart')}
+                  />
+                }
+                BadgeElement={
+                  <Text style={{ color: '#FFFFFF' }}>{5}</Text>
+                }
+                IconBadgeStyle={
+                  {
+                    top: 4,
+                    right: 4,
+                    width: 20,
+                    height: 20,
+                    fontWeight: 10,
+                    backgroundColor: '#ff0000'
+                  }
+                }
+                Hidden={5 === 0}
               />
-            }
-            BadgeElement={
-              <Text style={{ color: '#FFFFFF' }}>{5}</Text>
-            }
-            IconBadgeStyle={
-              {
-                top:4,
-                right:4,
-                width: 20,
-                height: 20,
-                fontWeight: 10,
-                backgroundColor: '#FF00EE'
-              }
-            }
-            Hidden={5 === 0}
-          />
-          <Icon
+              <Icon
                 reverse
                 color='#517fa4'
                 name="cart-plus"
                 type='font-awesome'
                 size={21}
-                // onPress={() => navigation.navigate('Cart')} 
+              // onPress={() => navigation.navigate('Cart')} 
               />
-
+            </>
+          }
         </View>
       ),
     };
@@ -61,35 +64,35 @@ export default class DetailsScreen extends React.Component {
   render() {
     const { navigation } = this.props;
     const itemId = navigation.getParam('id', 'NO-ID');
-    return(
-      
+    return (
+
       <ScrollView>
         <View style={{ flex: 1, alignItems: "center" }}>
-      <Image
+          <Image
             source={require('./../images/empty-image.png')}
             style={styles.image}
           />
-          <NumericInput 
-          type='plus-minus' 
-          minValue={1} 
-          maxValue={appData[itemId].count} 
-          onChange={value => console.log(value)}
-          rounded 
-            textColor='#B0228C' 
-            iconStyle={{ color: 'white' }} 
-            rightButtonBackgroundColor='#0000ff' 
+          <NumericInput
+            type='plus-minus'
+            minValue={1}
+            maxValue={appData[itemId].count}
+            onChange={value => console.log(value)}
+            rounded
+            textColor='#B0228C'
+            iconStyle={{ color: 'white' }}
+            rightButtonBackgroundColor='#0000ff'
             leftButtonBackgroundColor='#0000ff'
             borderColor='#0000ff'
             initValue={1}
           />
-        <Text>Model: {appData[itemId].name}</Text>
-        <Text>Description: {appData[itemId].description}</Text>
-        <Text>Price: {appData[itemId].price}</Text>
-        <Text>Available count: {appData[itemId].count}</Text>
+          <Text>Model: {appData[itemId].name}</Text>
+          <Text>Description: {appData[itemId].description}</Text>
+          <Text>Price: {appData[itemId].price}</Text>
+          <Text>Available count: {appData[itemId].count}</Text>
         </View>
       </ScrollView>
-      
-      
+
+
     );
   }
 }
