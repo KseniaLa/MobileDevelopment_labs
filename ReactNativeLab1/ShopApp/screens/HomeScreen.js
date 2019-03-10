@@ -5,6 +5,7 @@ import IconBadge from 'react-native-icon-badge';
 import Grid from 'react-native-grid-component';
 import appData from './../data';
 import { Constants, SQLite } from 'expo';
+import images from './../imageContainer';
 
 const db = SQLite.openDatabase('shop.db');
 
@@ -49,13 +50,23 @@ export default class HomeScreen extends React.Component {
         console.log('items ok')
       );
       tx.executeSql(
-        'create table if not exists cart (id integer primary key not null, item_id integer, count integer, constraint fk_items foreign key (item_id) references items (id));',  [], (_) =>
+        'create table if not exists cart (id integer primary key not null, item_id integer, count integer, constraint fk_items foreign key (item_id) references items (id), CONSTRAINT item_unique UNIQUE (item_id));',  [], (_) =>
         console.log('cart ok')
       );
-      tx.executeSql('insert into items (id, name, description, image, price, count) values (1, ?, ?, ?, 300, 30)', ['item2', 'new item', 'default']);
-        tx.executeSql('select * from items', [], (_, { rows }) =>
-          console.log(JSON.stringify(rows))
-        );
+      //tx.executeSql('drop table items', []);
+      //tx.executeSql('delete from items where id = 3', [], null, (_, res) => console.log(res));
+      // tx.executeSql('select * from items', [], (_, { rows }) =>
+      //     console.log(JSON.stringify(rows))
+      //   );
+
+      for (let i = 0; i < appData.length; i++){
+        tx.executeSql('insert into items (id, name, description, image, price, count) values (?, ?, ?, ?, ?, ?)', [appData[i].id, appData[i].name, appData[i].description, appData[i].image, appData[i].price, appData[i].count]);
+      }
+
+      // tx.executeSql('insert into items (id, name, description, image, price, count) values (1, ?, ?, ?, 300, 30)', ['item2', 'new item', 'default']);
+      //   tx.executeSql('select * from items', [], (_, { rows }) =>
+      //     console.log(JSON.stringify(rows))
+      //   );
     });
 
     this.update();
@@ -139,6 +150,7 @@ export default class HomeScreen extends React.Component {
       description={item.description}
       price={item.price}
       count={item.count}
+      image={item.image}
     />
   );
 
@@ -190,12 +202,14 @@ class ListItem extends React.PureComponent {
   }
 
   render() {
+    const img = this.props.image;
     return (
       <TouchableOpacity onPress={this._onPress} key={this.props.id}>
         <View style={styles.listItem} >
           <Image
-            source={require('./../images/empty-image.png')}
+            source={this.props.image ? images[this.props.image] : require('./../images/empty-image.png')}
             style={{ width: 100, height: 100, margin: 5 }}
+            resizeMode="contain"
           />
           <View style={styles.listItemInfo}><Text numberOfLines={1} style={styles.listName}>{this.props.name}</Text>
             <Text numberOfLines={3} style={styles.listDescription}>{this.props.description}</Text>
@@ -219,8 +233,9 @@ class GridItem extends React.PureComponent {
       <TouchableOpacity onPress={this._onPress} key={this.props.id}>
         <View style={[styles.gridItem]}>
           <Image
-            source={require('./../images/empty-image.png')}
+            source={item.image ? images[item.image] : require('./../images/empty-image.png')}
             style={{ width: 50, height: 50 }}
+            resizeMode="contain"
           />
           <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
           <Text numberOfLines={3} style={styles.description}>{item.description}</Text>

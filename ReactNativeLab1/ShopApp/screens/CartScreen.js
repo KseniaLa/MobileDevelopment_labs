@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import appData from './../data';
 import { SQLite } from 'expo';
+import images from './../imageContainer';
 
 const db = SQLite.openDatabase('shop.db');
 
@@ -36,7 +36,8 @@ export default class CartScreen extends React.Component {
       name={item.name}
       description={item.description}
       price={item.price}
-      count={item.count}
+      count={item.booked}
+      image={item.image}
     />
   );
 
@@ -71,8 +72,9 @@ class ListItem extends React.PureComponent {
       <TouchableOpacity onPress={this._onPress}>
         <View style={styles.listItem} key={this.props.id}>
           <Image
-            source={require('./../images/empty-image.png')}
+            source={this.props.image ? images[this.props.image] : require('./../images/empty-image.png')}
             style={{ width: 100, height: 100, margin: 5 }}
+            resizeMode="contain"
           />
           <View style={styles.listItemInfo}><Text numberOfLines={1} style={styles.listName}>{this.props.name}</Text>
             <Text numberOfLines={3} style={styles.listDescription}>{this.props.description}</Text>

@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native'
 import IconBadge from 'react-native-icon-badge';
 import { Icon } from 'react-native-elements';
 import NumericInput from 'react-native-numeric-input';
-import { Constants, SQLite } from 'expo';
+import { SQLite } from 'expo';
+import images from './../imageContainer';
 
 const db = SQLite.openDatabase('shop.db');
 
@@ -12,7 +13,7 @@ export default class DetailsScreen extends React.Component {
     super(props);
     const { navigation } = this.props;
     const itemId = navigation.getParam('id', 'NO-ID');
-    this.state = { id: itemId, data: {}, value: 1 };
+    this.state = { id: itemId, data: {}, count: 1 };
   }
 
   getItemData() {
@@ -25,12 +26,22 @@ export default class DetailsScreen extends React.Component {
     });
   }
 
+  updateItemCount() {
+    db.transaction(tx => {
+      tx.executeSql('update items set count = count - ? where id = ?', [this.state.count, this.state.id], null, (_, err) => console.log(err));
+    });
+  }
+
   addToCart() {
     db.transaction(tx => {
       tx.executeSql('insert into cart (item_id, count) values (?, ?)', [this.state.id, this.state.count],
-      (_, { rows }) =>
-        alert('Added to cart'));
+        (_, { rows }) => {
+          alert('Added to cart');
+          this.updateItemCount();
+        }, (_, err) => alert('Item exists in cart'));
     });
+
+    this.updateCartCount();
   }
 
   updateCartCount() {
@@ -98,7 +109,7 @@ export default class DetailsScreen extends React.Component {
                 name="cart-plus"
                 type='font-awesome'
                 size={21}
-                onPress={() => params.addToCart()} 
+                onPress={() => params.addToCart()}
               />
             </>
           }
@@ -114,16 +125,17 @@ export default class DetailsScreen extends React.Component {
       <ScrollView>
         <View style={{ flex: 1, alignItems: "center" }}>
           <Image
-            source={require('./../images/empty-image.png')}
+            source={item.image ? images[item.image] : require('./../images/empty-image.png')}
+            resizeMode="contain"
             style={styles.image}
           />
-          
+
           <NumericInput
             type='plus-minus'
-            value={this.state.value}
+            value={this.state.count}
             minValue={1}
             maxValue={item.count}
-            onChange={value => this.setState({value})}
+            onChange={value => this.setState({ count: value })}
             rounded
             textColor='#B0228C'
             iconStyle={{ color: 'white' }}
