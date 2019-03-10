@@ -12,7 +12,7 @@ export default class DetailsScreen extends React.Component {
     super(props);
     const { navigation } = this.props;
     const itemId = navigation.getParam('id', 'NO-ID');
-    this.state = { id: itemId, data: {}, count: 1 };
+    this.state = { id: itemId, data: {}, value: 1 };
   }
 
   getItemData() {
@@ -25,8 +25,31 @@ export default class DetailsScreen extends React.Component {
     });
   }
 
+  addToCart() {
+    db.transaction(tx => {
+      tx.executeSql('insert into cart (item_id, count) values (?, ?)', [this.state.id, this.state.count],
+      (_, { rows }) =>
+        alert('Added to cart'));
+    });
+  }
+
+  updateCartCount() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `select count(*) as cnt from cart;`,
+        [],
+        (_, { rows: { _array } }) => this.props.navigation.setParams({ cartCount: _array[0].cnt }),
+        (_, res) => this.props.navigation.setParams({ cartCount: 0 })
+      );
+    });
+  }
+
   componentDidMount() {
     this.getItemData();
+    this.updateCartCount();
+    this.props.navigation.setParams({
+      addToCart: this.addToCart.bind(this),
+    });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -55,7 +78,7 @@ export default class DetailsScreen extends React.Component {
                   />
                 }
                 BadgeElement={
-                  <Text style={{ color: '#FFFFFF' }}>{5}</Text>
+                  <Text style={{ color: '#FFFFFF' }}>{params.cartCount}</Text>
                 }
                 IconBadgeStyle={
                   {
@@ -67,7 +90,7 @@ export default class DetailsScreen extends React.Component {
                     backgroundColor: '#ff0000'
                   }
                 }
-                Hidden={5 === 0}
+                Hidden={params.cartCount === 0}
               />
               <Icon
                 reverse
@@ -75,7 +98,7 @@ export default class DetailsScreen extends React.Component {
                 name="cart-plus"
                 type='font-awesome'
                 size={21}
-              // onPress={() => navigation.navigate('Cart')} 
+                onPress={() => params.addToCart()} 
               />
             </>
           }
@@ -94,11 +117,13 @@ export default class DetailsScreen extends React.Component {
             source={require('./../images/empty-image.png')}
             style={styles.image}
           />
+          
           <NumericInput
             type='plus-minus'
+            value={this.state.value}
             minValue={1}
             maxValue={item.count}
-            onChange={value => this.setState({count: value})}
+            onChange={value => this.setState({value})}
             rounded
             textColor='#B0228C'
             iconStyle={{ color: 'white' }}

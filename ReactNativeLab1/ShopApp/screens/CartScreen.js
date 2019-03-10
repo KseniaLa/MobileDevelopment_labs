@@ -2,11 +2,31 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import appData from './../data';
+import { SQLite } from 'expo';
+
+const db = SQLite.openDatabase('shop.db');
 
 export default class CartScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cartCount: 5, data: appData };
+    this.state = { data: [] };
+    this.props.navigation.addListener(
+      'willFocus',
+      _ => {
+        this.update();
+      }
+    )
+  }
+
+  update() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `select items.id, name, description, image, price, items.count, cart.count as booked from items, cart where cart.item_id = items.id;`,
+        [],
+        (_, { rows: { _array } }) => this.setState({ data: _array }),
+        (t, error) => console.log(error),
+      );
+    });
   }
 
   renderListItem = ({ item }) => (
@@ -25,7 +45,7 @@ export default class CartScreen extends React.Component {
     navigate('Details', { id: itemId, isCartItem: true })
   };
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item) => `${item.id}`; 
 
   render() {
     return (

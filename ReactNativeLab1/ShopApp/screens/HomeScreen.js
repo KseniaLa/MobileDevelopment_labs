@@ -14,8 +14,9 @@ export default class HomeScreen extends React.Component {
     this.state = { cartCount: 5, isTabs: false, data: [] };
     this.props.navigation.addListener(
       'willFocus',
-      payload => {
+      _ => {
         this.update();
+        this.updateCartCount();
       }
     )
   }
@@ -26,6 +27,17 @@ export default class HomeScreen extends React.Component {
         `select * from items;`,
         [],
         (_, { rows: { _array } }) => this.setState({ data: _array })
+      );
+    });
+  }
+
+  updateCartCount() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `select count(*) as cnt from cart;`,
+        [],
+        (_, { rows: { _array } }) => this.props.navigation.setParams({cartCount: _array[0].cnt}),
+        (_, res) =>  this.props.navigation.setParams({cartCount: 0}) 
       );
     });
   }
@@ -49,7 +61,7 @@ export default class HomeScreen extends React.Component {
     this.update();
 
     this.props.navigation.setParams({
-      cartCount: this.state.cartCount,
+      //cartCount: this.state.cartCount,
       toggleListView: this.toggleListAppearance.bind(this),
       listView: this.state.isTabs
     });
