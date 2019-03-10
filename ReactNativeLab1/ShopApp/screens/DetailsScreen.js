@@ -16,13 +16,18 @@ export default class DetailsScreen extends React.Component {
     const currCount = navigation.getParam('currentCount', 0);
     this.state = { id: itemId, data: {}, count: currCount == 0 ? 1 : currCount, currentCount: currCount };
   }
- 
+
   getItemData() {
     db.transaction(tx => {
       tx.executeSql(
         `select * from items where id = ?;`,
         [this.state.id],
-        (_, { rows: { _array } }) => this.setState({ data: _array[0] })
+        (_, { rows: { _array } }) => {
+          this.setState({ data: _array[0] });
+          this.props.navigation.setParams({
+            canAdd: this.state.currentCount + _array[0].count > 0,
+          });
+        }
       );
     });
   }
@@ -40,13 +45,13 @@ export default class DetailsScreen extends React.Component {
           Alert.alert(
             'Success',
             'Item added to cart',
-            [{text: 'OK'}]
+            [{ text: 'OK' }]
           );
           this.updateItemCount();
         }, (_, err) => Alert.alert(
           'Error',
           'Item already exists in cart',
-          [{text: 'OK'}]
+          [{ text: 'OK' }]
         ));
     });
 
@@ -60,13 +65,13 @@ export default class DetailsScreen extends React.Component {
           Alert.alert(
             'Success',
             'Item count updated',
-            [{text: 'OK'}]
+            [{ text: 'OK' }]
           );
           this.updateItemCount();
         }, (_, err) => Alert.alert(
           'Error',
           'Eror updating cart',
-          [{text: 'OK'}]
+          [{ text: 'OK' }]
         ));
     });
   }
@@ -131,25 +136,27 @@ export default class DetailsScreen extends React.Component {
                 }
                 Hidden={params.cartCount === 0}
               />
-              <Icon
-                reverse
-                color='#0000ff'
-                name="cart-plus"
-                type='font-awesome'
-                size={21}
-                onPress={() => params.addToCart()}
-              />
+              {params.canAdd &&
+                <Icon
+                  reverse
+                  color='#0000ff'
+                  name="cart-plus"
+                  type='font-awesome'
+                  size={21}
+                  onPress={() => params.addToCart()}
+                />
+              }
             </>
           }
-          {params.isCartItem && 
+          {params.isCartItem &&
             <Icon
-            reverse
-            color='#0000ff'
-            name="check"
-            type='font-awesome'
-            size={21}
-            onPress={() => params.updateCart()}
-          />
+              reverse
+              color='#0000ff'
+              name="check"
+              type='font-awesome'
+              size={21}
+              onPress={() => params.updateCart()}
+            />
           }
         </View>
       ),
@@ -167,25 +174,30 @@ export default class DetailsScreen extends React.Component {
             resizeMode="contain"
             style={styles.image}
           />
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.price}>{item.price} $</Text>
 
-          <NumericInput
-            type='plus-minus'
-            value={this.state.count}
-            minValue={1}
-            maxValue={item.count + this.state.currentCount}
-            onChange={value => this.setState({ count: value })}
-            rounded
-            textColor='#B0228C'
-            iconStyle={{ color: 'white' }}
-            rightButtonBackgroundColor='#0000ff'
-            leftButtonBackgroundColor='#0000ff'
-            borderColor='#0000ff'
-            initValue={this.state.count}
-          />
-          <Text>Model: {item.name}</Text>
-          <Text>Description: {item.description}</Text>
-          <Text>Price: {item.price}</Text>
-          <Text>Available count: {item.count}</Text>
+          {item.count + this.state.currentCount > 0 &&
+            <NumericInput
+              type='plus-minus'
+              value={this.state.count}
+              minValue={1}
+              maxValue={item.count + this.state.currentCount}
+              onChange={value => this.setState({ count: value })}
+              rounded
+              textColor='#B0228C'
+              iconStyle={{ color: 'white' }}
+              rightButtonBackgroundColor='#0000ff'
+              leftButtonBackgroundColor='#0000ff'
+              borderColor='#0000ff'
+              initValue={this.state.count}
+            />
+          }
+
+          
+          <Text style={styles.description}>Description:</Text>
+          <Text style={[styles.description, {marginBottom: 30}]}>{item.description}</Text>
+          
         </View>
       </ScrollView>
 
@@ -221,5 +233,27 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 30
-  }
+  },
+  name: {
+    fontWeight: 'bold',
+    flexWrap: "wrap",
+    width: '80%',
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10
+  },
+  description: {
+    flex: 1,
+    width: '80%',
+    flexWrap: "wrap",
+    fontSize: 20,
+    margin: 5
+  },
+  price: {
+    color: "#0000ff",
+    paddingTop: 5,
+    paddingBottom: 5,
+    fontSize: 20,
+    marginBottom: 10
+  },
 });
