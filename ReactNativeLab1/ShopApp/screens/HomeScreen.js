@@ -45,6 +45,7 @@ export default class HomeScreen extends React.Component {
             color='#517fa4'
             name={params.listView ? "view-list" : "dashboard"}
             type='material'
+            size={21}
             onPress={() => params.toggleListView()}
           />
 
@@ -55,6 +56,7 @@ export default class HomeScreen extends React.Component {
                 color='#517fa4'
                 name="shopping-cart"
                 type='font-awesome'
+                size={21}
                 onPress={() => navigation.navigate('Cart')}
               />
             }
@@ -63,6 +65,8 @@ export default class HomeScreen extends React.Component {
             }
             IconBadgeStyle={
               {
+                top: 4,
+                right:4,
                 width: 20,
                 height: 20,
                 backgroundColor: '#FF00EE'
