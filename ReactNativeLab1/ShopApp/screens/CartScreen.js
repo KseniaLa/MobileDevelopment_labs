@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { SQLite } from 'expo';
 import images from './../imageContainer';
@@ -9,7 +9,7 @@ const db = SQLite.openDatabase('shop.db');
 export default class CartScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], count: 0 };
     this.props.navigation.addListener(
       'willFocus',
       _ => {
@@ -18,7 +18,40 @@ export default class CartScreen extends React.Component {
     )
   }
 
+  componentDidMount() {
+    this.update();
+    this.props.navigation.setParams({
+      count: this.state.data.length,
+      saveOrder: this.saveOrder.bind(this)
+    });
+  }
 
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      headerStyle: {
+        backgroundColor: '#1E91FF',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerRight: (
+        <View style={styles.rowContainer}>
+          {params.count > 0 && 
+            <Icon
+            reverse
+            color='#0000ff'
+            name="check"
+            type='font-awesome'
+            size={21}
+            onPress={() => params.saveOrder()}
+          />
+          }
+        </View>
+      ),
+    };
+  }
 
   deleteItemFromCart = (itemId, count) => {
     let updateCount = (count) => {
@@ -36,7 +69,30 @@ export default class CartScreen extends React.Component {
       tx.executeSql(
         `select items.id, name, description, image, price, items.count, cart.count as booked from items, cart where cart.item_id = items.id;`,
         [],
-        (_, { rows: { _array } }) => this.setState({ data: _array }),
+        (_, { rows: { _array } }) => {
+          this.setState({ data: _array});
+          this.props.navigation.setParams({
+            count: _array.length,
+          });
+        },
+        (t, error) => console.log(error),
+      );
+    });
+  }
+
+  saveOrder() {
+    db.transaction(tx => {
+      tx.executeSql(
+        `delete from cart;`,
+        [],
+        (_, res) => {
+          this.update();
+          Alert.alert(
+            'Success',
+            'Order saved, cart is empty',
+            [{text: 'OK'}]
+          );
+        },
         (t, error) => console.log(error),
       );
     });

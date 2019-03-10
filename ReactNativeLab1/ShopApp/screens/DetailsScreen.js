@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Button, Alert } from 'react-native';
 import IconBadge from 'react-native-icon-badge';
 import { Icon } from 'react-native-elements';
 import NumericInput from 'react-native-numeric-input';
@@ -37,9 +37,17 @@ export default class DetailsScreen extends React.Component {
     db.transaction(tx => {
       tx.executeSql('insert into cart (item_id, count) values (?, ?)', [this.state.id, this.state.count],
         (_, { rows }) => {
-          alert('Added to cart');
+          Alert.alert(
+            'Success',
+            'Item added to cart',
+            [{text: 'OK'}]
+          );
           this.updateItemCount();
-        }, (_, err) => alert('Item exists in cart'));
+        }, (_, err) => Alert.alert(
+          'Error',
+          'Item already exists in cart',
+          [{text: 'OK'}]
+        ));
     });
 
     this.updateCartCount();
@@ -49,9 +57,17 @@ export default class DetailsScreen extends React.Component {
     db.transaction(tx => {
       tx.executeSql('update cart set count = ? where item_id = ?', [this.state.count, this.state.id],
         (_, { rows }) => {
-          alert('Count updated');
+          Alert.alert(
+            'Success',
+            'Item count updated',
+            [{text: 'OK'}]
+          );
           this.updateItemCount();
-        }, (_, err) => alert('Error updating cart'));
+        }, (_, err) => Alert.alert(
+          'Error',
+          'Eror updating cart',
+          [{text: 'OK'}]
+        ));
     });
   }
 

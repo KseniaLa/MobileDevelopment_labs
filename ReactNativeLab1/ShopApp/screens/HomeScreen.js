@@ -72,7 +72,6 @@ export default class HomeScreen extends React.Component {
     this.update();
 
     this.props.navigation.setParams({
-      //cartCount: this.state.cartCount,
       toggleListView: this.toggleListAppearance.bind(this),
       listView: this.state.isTabs
     });
