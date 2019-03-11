@@ -29,6 +29,7 @@ export default class CartScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
+      headerTitle: "Cart",
       headerStyle: {
         backgroundColor: '#1E91FF',
       },

@@ -193,7 +193,7 @@ export default class HomeScreen extends React.Component {
       this.setState({searchData: this.state.data })
     }
   };
- 
+
   render() {
     let isTabs = this.state.isTabs;
     let itemList;

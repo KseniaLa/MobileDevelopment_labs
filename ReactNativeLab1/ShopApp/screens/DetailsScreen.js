@@ -99,6 +99,7 @@ export default class DetailsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
+      headerTitle: "Details",
       headerStyle: {
         backgroundColor: '#1E91FF',
       },
