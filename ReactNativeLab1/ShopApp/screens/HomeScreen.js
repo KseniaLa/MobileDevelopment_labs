@@ -12,12 +12,13 @@ const db = SQLite.openDatabase('shop.db');
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cartCount: 5, isTabs: false, data: [] };
+    this.state = { cartCount: 5, isTabs: false, data: [], searchData: [], search: '', searchBar: false };
     this.props.navigation.addListener(
       'willFocus',
       _ => {
         this.update();
         this.updateCartCount();
+        this.setState({ searchBar: false, search: '' });
       }
     )
   }
@@ -27,7 +28,7 @@ export default class HomeScreen extends React.Component {
       tx.executeSql(
         `select * from items;`,
         [],
-        (_, { rows: { _array } }) => this.setState({ data: _array })
+        (_, { rows: { _array } }) => this.setState({ data: _array, searchData: _array })
       );
     });
   }
@@ -37,8 +38,8 @@ export default class HomeScreen extends React.Component {
       tx.executeSql(
         `select count(*) as cnt from cart;`,
         [],
-        (_, { rows: { _array } }) => this.props.navigation.setParams({cartCount: _array[0].cnt}),
-        (_, res) =>  this.props.navigation.setParams({cartCount: 0}) 
+        (_, { rows: { _array } }) => this.props.navigation.setParams({ cartCount: _array[0].cnt }),
+        (_, res) => this.props.navigation.setParams({ cartCount: 0 })
       );
     });
   }
@@ -46,20 +47,20 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     db.transaction(tx => {
       tx.executeSql(
-        'create table if not exists items (id integer primary key not null, name text, description text, image text, price integer, count integer);',  [], (_) =>
-        console.log('items ok')
+        'create table if not exists items (id integer primary key not null, name text, description text, image text, price integer, count integer);', [], (_) =>
+          console.log('items ok')
       );
       tx.executeSql(
-        'create table if not exists cart (id integer primary key not null, item_id integer, count integer, constraint fk_items foreign key (item_id) references items (id), CONSTRAINT item_unique UNIQUE (item_id));',  [], (_) =>
-        console.log('cart ok')
+        'create table if not exists cart (id integer primary key not null, item_id integer, count integer, constraint fk_items foreign key (item_id) references items (id), CONSTRAINT item_unique UNIQUE (item_id));', [], (_) =>
+          console.log('cart ok')
       );
       //tx.executeSql('drop table items', []);
       //tx.executeSql('delete from items where id = 3', [], null, (_, res) => console.log(res));
       tx.executeSql('select * from cart', [], (_, { rows }) =>
-          console.log(JSON.stringify(rows))
-        );
+        console.log(JSON.stringify(rows))
+      );
 
-      for (let i = 0; i < appData.length; i++){
+      for (let i = 0; i < appData.length; i++) {
         tx.executeSql('insert into items (id, name, description, image, price, count) values (?, ?, ?, ?, ?, ?)', [appData[i].id, appData[i].name, appData[i].description, appData[i].image, appData[i].price, appData[i].count]);
       }
 
@@ -73,6 +74,7 @@ export default class HomeScreen extends React.Component {
 
     this.props.navigation.setParams({
       toggleListView: this.toggleListAppearance.bind(this),
+      toggleSearchBar: this.toggleSearchBar.bind(this),
       listView: this.state.isTabs
     });
   }
@@ -83,6 +85,11 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.setParams({
       listView: !isTabsVal,
     });
+  }
+
+  toggleSearchBar() {
+    let bar = this.state.searchBar;
+    this.setState({ searchBar: !bar });
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -98,6 +105,15 @@ export default class HomeScreen extends React.Component {
       },
       headerRight: (
         <View style={styles.rowContainer}>
+          <Icon
+            reverse
+            color='#0000ff'
+            name="search"
+            type='font-awesome'
+            size={21}
+            onPress={() => params.toggleSearchBar()}
+          />
+
           <Icon
             reverse
             color='#0000ff'
@@ -124,7 +140,7 @@ export default class HomeScreen extends React.Component {
             IconBadgeStyle={
               {
                 top: 4,
-                right:4,
+                right: 4,
                 width: 20,
                 height: 20,
                 backgroundColor: '#FF0000'
@@ -167,8 +183,17 @@ export default class HomeScreen extends React.Component {
     navigate('Details', { id: itemId, isCartItem: false })
   };
 
-  //renderPlaceholder = item => <View style={styles.gridItem} key={item.id} />;
-
+  updateSearch = search => {
+    this.setState({ search });
+    if (search.length > 3) {
+      let result = this.state.data.filter(d => d.name.indexOf(search) >= 0);
+      this.setState({searchData: result })
+    }
+    else {
+      this.setState({searchData: this.state.data })
+    }
+  };
+ 
   render() {
     let isTabs = this.state.isTabs;
     let itemList;
@@ -176,21 +201,39 @@ export default class HomeScreen extends React.Component {
       itemList = <Grid
         style={styles.list}
         renderItem={this.renderGridItem}
-        //renderPlaceholder={this.renderPlaceholder}
-        data={this.state.data}
+        data={this.state.searchData}
         itemsPerRow={3}
       />
     }
     else {
       itemList = <FlatList
-        data={this.state.data}
-        style={{backgroundColor: "#dcdcdc"}}
+        data={this.state.searchData}
+        style={{ backgroundColor: "#dcdcdc" }}
         keyExtractor={this._keyExtractor}
         renderItem={this.renderListItem}
       />
     }
+
+    const { search } = this.state;
+
     return (
-      <>{itemList}</>
+      <>
+        {this.state.searchBar &&
+          <SearchBar
+            platform='android'
+            placeholder="type more than 3 symbols..."
+            onChangeText={this.updateSearch}
+            value={search}
+            containerStyle={styles.searchContainer}
+            inputStyle={styles.searchInput}
+            leftIconContainerStyle={styles.leftIcon}
+            rightIconContainerStyle={styles.rightIcon}
+            inputContainerStyle={{backgroundColor: '#1E91FF', borderColor: '#1E91FF'}}
+            placeholderTextColor='#ffffff'
+          />
+        }
+        {itemList}
+      </>
     );
   }
 }
@@ -213,7 +256,7 @@ class ListItem extends React.PureComponent {
           <View style={styles.listItemInfo}><Text numberOfLines={1} style={styles.listName}>{this.props.name}</Text>
             <Text numberOfLines={3} style={styles.listDescription}>{this.props.description}</Text>
             <Text style={styles.price}>{this.props.price} $</Text>
-            <Text style={[{backgroundColor: this.props.count == 0 ? "#ff0000" : "#0000ff"}, styles.count]}>{this.props.count == 0 ? 'missing' : this.props.count}</Text>
+            <Text style={[{ backgroundColor: this.props.count == 0 ? "#ff0000" : "#0000ff" }, styles.count]}>{this.props.count == 0 ? 'missing' : this.props.count}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -239,7 +282,7 @@ class GridItem extends React.PureComponent {
           <Text numberOfLines={1} style={styles.name}>{item.name}</Text>
           <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
           <Text style={styles.price}>{item.price} $</Text>
-          <Text style={[{backgroundColor: item.count == 0 ? "#ff0000" : "#0000ff"}, styles.count]}>{item.count == 0 ? 'missing' : item.count}</Text>
+          <Text style={[{ backgroundColor: item.count == 0 ? "#ff0000" : "#0000ff" }, styles.count]}>{item.count == 0 ? 'missing' : item.count}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -309,9 +352,22 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   count: {
-    //backgroundColor: "#0000ff",
     width: '100%',
     textAlign: "center",
     color: "#ffffff"
+  },
+  searchContainer: {
+    backgroundColor: '#1E91FF',
+    borderColor: '#1E91FF',
+  },
+  searchInput: {
+    backgroundColor: '#1E91FF',
+    color: '#ffffff'
+  },
+  leftIcon: {
+    backgroundColor: '#1E91FF',
+  },
+  rightIcon: {
+    backgroundColor: '#1E91FF',
   }
 }); 
