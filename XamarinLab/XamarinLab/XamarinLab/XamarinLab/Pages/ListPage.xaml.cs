@@ -6,31 +6,67 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinLab.Helpers;
+using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ListPage : ContentPage
-	{
-	     public string[] Phones { get; set; }
+     public partial class ListPage : ContentPage
+     {
+          public string[] Phones { get; set; }
 
-	     public ListPage()
-	     {
-	          InitializeComponent();
+          private ListView taskList = new ListView();
 
-	          string[] phones = new string[] { "iPhone 7", "Samsung Galaxy S8", "Huawei P10", "LG G6" };
+          public ListPage()
+          {
+               InitializeComponent();
 
-	          var listView = new ListView();
+               taskList.ItemTapped += untapItem;
 
-	          listView.ItemsSource = phones;
-	          listView.ItemTapped += untapItem;
-	          this.Content = new StackLayout { Children = { listView } };
-	     }
+               taskList.HasUnevenRows = true;
 
-	     private async void untapItem(object sender, ItemTappedEventArgs e)
-	     {
-	          await Navigation.PushModalAsync(new DetailPage(e.Item.ToString()));
-	          ((ListView)sender).SelectedItem = null;
-	     }
+               taskList.ItemTemplate = new DataTemplate(() =>
+               {
+                    // привязка к свойству Name
+                    Label titleLabel = new Label {FontSize = 18};
+                    titleLabel.SetBinding(Label.TextProperty, "Name");
+
+                    // привязка к свойству Company
+                    Label companyLabel = new Label();
+                    companyLabel.SetBinding(Label.TextProperty, "Description");
+
+                    // создаем объект ViewCell.
+                    return new ViewCell
+                    {
+                         View = new StackLayout
+                         {
+                              Padding = new Thickness(0, 5),
+                              Orientation = StackOrientation.Vertical,
+                              Children = {titleLabel, companyLabel}
+                         }
+                    };
+               });
+
+               this.Content = new StackLayout { Children = { taskList } };
+          }
+
+          private async void OnButtonClickedAsync(object sender, EventArgs e)
+          {
+
+          }
+
+          private async void untapItem(object sender, ItemTappedEventArgs e)
+          {
+               await Navigation.PushModalAsync(new DetailPage(e.Item));
+               ((ListView)sender).SelectedItem = null;
+          }
+
+          protected override async void OnAppearing()
+          {
+               base.OnAppearing();
+               var firebase = new FirebaseHelper();
+               var allPersons = await firebase.GetAllTasks();
+               taskList.ItemsSource = allPersons;
+          }
      }
 }

@@ -6,21 +6,26 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DetailPage : ContentPage
 	{
-	     public DetailPage(string name)
+	     public DetailPage(object item)
 	     {
 	          InitializeComponent();
+
+	          var task = item as Task;
+
+               if (task == null) return;
 
 	          var stackLayout = new StackLayout();
 
 	          var label = new Label
 	          {
-	               Text = name
+	               Text = task.Name
 	          };
 
 	          var button = new Button
