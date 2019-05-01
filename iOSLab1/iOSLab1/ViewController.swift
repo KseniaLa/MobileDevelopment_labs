@@ -9,6 +9,17 @@
 import UIKit
 import RealmSwift
 
+extension UIViewController {
+    
+    func showWarningAlert(title: String, message: String, actionTitle: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var loginField: UITextField!
@@ -19,9 +30,14 @@ class ViewController: UIViewController {
         setRegistrationMode()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
     @IBAction func signIn(_ sender: Any) {
-        let login = loginField!.text
-        let password = passwordField!.text
+        let login = loginField.text
+        let password = passwordField.text
         
         if login!.count == 0 {
             showWarningAlert(title: "Invalid", message: "Username can't be empty", actionTitle: "Got it")
@@ -37,14 +53,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    func showWarningAlert(title: String, message: String, actionTitle: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         isAuthorized = false

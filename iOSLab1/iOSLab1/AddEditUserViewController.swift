@@ -83,7 +83,7 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
         tempUser.password = password
         
         
-        if (isRegistration){
+        if isRegistration {
             tempUser.avatar = currentImage == defaultImage ? nil : currentImage
             addUser(user: tempUser)
             currentUser = tempUser
@@ -106,18 +106,18 @@ class AddEditUserViewController: UIViewController, UINavigationControllerDelegat
             currentUser = tempUser
         }
         
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "userListViewController") as UIViewController
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    func showWarningAlert(title: String, message: String, actionTitle: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+//    func showWarningAlert(title: String, message: String, actionTitle: String){
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//
+//        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: {(action: UIAlertAction!) in alert.dismiss(animated: true, completion: nil)}))
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
