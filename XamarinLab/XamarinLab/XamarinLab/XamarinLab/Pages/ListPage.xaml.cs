@@ -27,15 +27,12 @@ namespace XamarinLab.Pages
 
                taskList.ItemTemplate = new DataTemplate(() =>
                {
-                    // привязка к свойству Name
                     Label titleLabel = new Label {FontSize = 18};
                     titleLabel.SetBinding(Label.TextProperty, "Name");
 
-                    // привязка к свойству Company
                     Label companyLabel = new Label();
                     companyLabel.SetBinding(Label.TextProperty, "Description");
 
-                    // создаем объект ViewCell.
                     return new ViewCell
                     {
                          View = new StackLayout
