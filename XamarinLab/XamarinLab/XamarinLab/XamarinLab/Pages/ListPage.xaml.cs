@@ -15,36 +15,37 @@ namespace XamarinLab.Pages
      {
           public string[] Phones { get; set; }
 
-          private ListView taskList = new ListView();
+          //private ListView taskList = new ListView();
+          public List<Task> Tasks { get; set; }
 
           public ListPage()
           {
                InitializeComponent();
 
-               taskList.ItemTapped += untapItem;
+               //taskList.ItemTapped += untapItem;
 
-               taskList.HasUnevenRows = true;
+               //taskList.HasUnevenRows = true;
 
-               taskList.ItemTemplate = new DataTemplate(() =>
-               {
-                    Label titleLabel = new Label {FontSize = 18};
-                    titleLabel.SetBinding(Label.TextProperty, "Name");
+               //taskList.ItemTemplate = new DataTemplate(() =>
+               //{
+               //     Label titleLabel = new Label {FontSize = 18};
+               //     titleLabel.SetBinding(Label.TextProperty, "Name");
 
-                    Label companyLabel = new Label();
-                    companyLabel.SetBinding(Label.TextProperty, "Description");
+               //     Label companyLabel = new Label();
+               //     companyLabel.SetBinding(Label.TextProperty, "Description");
 
-                    return new ViewCell
-                    {
-                         View = new StackLayout
-                         {
-                              Padding = new Thickness(0, 5),
-                              Orientation = StackOrientation.Vertical,
-                              Children = {titleLabel, companyLabel}
-                         }
-                    };
-               });
+               //     return new ViewCell
+               //     {
+               //          View = new StackLayout
+               //          {
+               //               Padding = new Thickness(0, 5),
+               //               Orientation = StackOrientation.Vertical,
+               //               Children = {titleLabel, companyLabel}
+               //          }
+               //     };
+               //});
 
-               this.Content = new StackLayout { Children = { taskList } };
+               //this.Content = new StackLayout { Children = { taskList } };
           }
 
           private async void OnButtonClickedAsync(object sender, EventArgs e)
@@ -62,8 +63,12 @@ namespace XamarinLab.Pages
           {
                base.OnAppearing();
                var firebase = new FirebaseHelper();
-               var allPersons = await firebase.GetAllTasks();
-               taskList.ItemsSource = allPersons;
+               Tasks = await firebase.GetAllTasks();
+          }
+
+          private async void Button_OnClicked(object sender, EventArgs e)
+          {
+               await Navigation.PushModalAsync(new AddTaskPage());
           }
      }
 }
