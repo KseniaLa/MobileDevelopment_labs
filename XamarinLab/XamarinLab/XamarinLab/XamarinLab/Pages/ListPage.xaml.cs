@@ -13,44 +13,11 @@ namespace XamarinLab.Pages
 {
      public partial class ListPage : ContentPage
      {
-          public string[] Phones { get; set; }
-
-          //private ListView taskList = new ListView();
           public List<Task> Tasks { get; set; }
 
           public ListPage()
           {
                InitializeComponent();
-
-               //taskList.ItemTapped += untapItem;
-
-               //taskList.HasUnevenRows = true;
-
-               //taskList.ItemTemplate = new DataTemplate(() =>
-               //{
-               //     Label titleLabel = new Label {FontSize = 18};
-               //     titleLabel.SetBinding(Label.TextProperty, "Name");
-
-               //     Label companyLabel = new Label();
-               //     companyLabel.SetBinding(Label.TextProperty, "Description");
-
-               //     return new ViewCell
-               //     {
-               //          View = new StackLayout
-               //          {
-               //               Padding = new Thickness(0, 5),
-               //               Orientation = StackOrientation.Vertical,
-               //               Children = {titleLabel, companyLabel}
-               //          }
-               //     };
-               //});
-
-               //this.Content = new StackLayout { Children = { taskList } };
-          }
-
-          private async void OnButtonClickedAsync(object sender, EventArgs e)
-          {
-
           }
 
           private async void untapItem(object sender, ItemTappedEventArgs e)
@@ -62,8 +29,8 @@ namespace XamarinLab.Pages
           protected override async void OnAppearing()
           {
                base.OnAppearing();
-               var firebase = new FirebaseHelper();
-               Tasks = await firebase.GetAllTasks();
+               Tasks = await TaskHelper.GetAllTasks();
+               TaskList.ItemsSource = Tasks;
           }
 
           private async void Button_OnClicked(object sender, EventArgs e)

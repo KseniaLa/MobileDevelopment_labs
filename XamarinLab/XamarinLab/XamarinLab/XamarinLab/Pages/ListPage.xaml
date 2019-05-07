@@ -21,6 +21,6 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <views1:FloatingActionButton WidthRequest="56" HeightRequest="56" Image="ic_action_add_box.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
+        <views1:FloatingActionButton TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
     </StackLayout>
 </ContentPage>

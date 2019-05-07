@@ -4,9 +4,16 @@
              x:Class="XamarinLab.Pages.AddRolePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Add Role"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="NameEntry" Placeholder="Role name"/>
+            <Picker x:Name="Picker" SelectedIndexChanged="Picker_OnSelectedIndexChangedicker_SelectedIndexChanged" Title="Choose Access Level">
+                <Picker.Items>
+                    <x:String>Read Only</x:String>
+                    <x:String>Can Create Tasks</x:String>
+                    <x:String>Can Create and Close Tasks</x:String>
+                    <x:String>CanCreate Roles</x:String>
+                </Picker.Items>
+            </Picker>
+            <Button Text="Adde" Clicked="AddButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
