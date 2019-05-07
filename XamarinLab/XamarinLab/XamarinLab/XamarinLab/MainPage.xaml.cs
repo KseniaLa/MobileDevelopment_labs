@@ -38,7 +38,7 @@ namespace XamarinLab
 
           private async void OnRegisterButtonClicked(object sender, System.EventArgs e)
           {
-               await Navigation.PushAsync(new RegistrationPage());
+               await Navigation.PushAsync(new SignUpPage());
           }
      }
 }

@@ -16,6 +16,8 @@ namespace XamarinLab.Pages
           {
                InitializeComponent();
 
+               Title = "Tasks";
+
                var listPage = new NavigationPage(new ListPage())
                {
                     Icon = "ic_action_list.png"
@@ -29,6 +31,13 @@ namespace XamarinLab.Pages
                Children.Add(listPage);
                Children.Add(rolesPage);
                Children.Add(new SettingsPage());
+          }
+
+          protected override void OnTabIndexPropertyChanged(int oldValue, int newValue)
+          {
+               base.OnTabIndexPropertyChanged(oldValue, newValue);
+               var titles = new[] {"Tasks", "Roles", "Settings"};
+               Title = titles[newValue];
           }
      }
 }

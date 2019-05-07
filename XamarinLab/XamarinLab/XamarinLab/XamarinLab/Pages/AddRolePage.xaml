@@ -10,10 +10,10 @@
                     <x:String>Read Only</x:String>
                     <x:String>Can Create Tasks</x:String>
                     <x:String>Can Create and Close Tasks</x:String>
-                    <x:String>CanCreate Roles</x:String>
+                    <x:String>Can Create Roles</x:String>
                 </Picker.Items>
             </Picker>
-            <Button Text="Adde" Clicked="AddButton_Clicked"></Button>
+            <Button Text="Add Role" Clicked="AddButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

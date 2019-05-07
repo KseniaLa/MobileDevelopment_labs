@@ -13,7 +13,7 @@
                             <ViewCell.View>
                                 <StackLayout>
                                     <Label Text="{Binding Name}" FontSize="18" />
-                                    <Label Text="{Binding Description}" />
+                                    <Label Text="{Binding PriviledgeText}" />
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

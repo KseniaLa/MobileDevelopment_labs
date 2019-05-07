@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
+using XamarinLab.Enums;
 using XamarinLab.Models;
 using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Helpers
 {
-    public class RoleHelper
-    {
-         private static readonly FirebaseClient Firebase;
+     public class RoleHelper
+     {
+          private static readonly FirebaseClient Firebase;
 
-         static RoleHelper()
-         {
-              Firebase = new FirebaseClient("https://lab4ksenia.firebaseio.com/");
-         }
+          static RoleHelper()
+          {
+               Firebase = new FirebaseClient("https://lab4ksenia.firebaseio.com/");
+          }
 
           public static async Task<List<Role>> GetAllRoles()
           {
@@ -28,6 +29,7 @@ namespace XamarinLab.Helpers
                          Name = item.Object.Name,
                          Id = item.Object.Id,
                          PriviledgeLevel = item.Object.PriviledgeLevel,
+                         PriviledgeText = GetPriviledgeText(item.Object.PriviledgeLevel),
                          RedColor = item.Object.RedColor,
                          GreenColor = item.Object.GreenColor,
                          BlueColor = item.Object.BlueColor
@@ -35,8 +37,24 @@ namespace XamarinLab.Helpers
           }
 
           public static async void AddRole(Role role)
-         {
-              await Firebase.Child("Roles").PostAsync(role);
-         }
+          {
+               await Firebase.Child("Roles").PostAsync(role);
+          }
+
+          private static string GetPriviledgeText(int id)
+          {
+               switch ((AccessLevels) id)
+               {
+                    case AccessLevels.ReadOnly:
+                         return "Read Only";
+                    case AccessLevels.CreateOnly:
+                         return "Can create tasks";
+                    case AccessLevels.CanCreateClose:
+                         return "Can create and close tasks";
+                    case AccessLevels.CanCreateRoles:
+                         return "Can create/close tasks and manage roles";
+                    default: return "Undefined";
+               }
+          }
      }
 }
