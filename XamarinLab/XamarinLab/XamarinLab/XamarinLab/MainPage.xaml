@@ -5,8 +5,8 @@
              x:Class="XamarinLab.MainPage">
 
     <StackLayout>
-        <Entry Placeholder="login" />
-        <Entry Placeholder="password" IsPassword="True"/>
+        <Entry x:Name="LoginEntry" Placeholder="login" />
+        <Entry x:Name="PasswordEntry" Placeholder="password" IsPassword="True"/>
         <Button Text="Sign In" Clicked="OnLoginButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
         <Button Text="Sign Up" Clicked="OnRegisterButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
     </StackLayout>

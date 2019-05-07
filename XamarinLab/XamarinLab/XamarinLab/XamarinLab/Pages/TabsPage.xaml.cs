@@ -31,6 +31,11 @@ namespace XamarinLab.Pages
                Children.Add(listPage);
                Children.Add(rolesPage);
                Children.Add(new SettingsPage());
+
+               ToolbarItems.Add(new ToolbarItem("Search", "ic_action_filter_list.png", async () =>
+               {
+                    await Navigation.PushAsync(new FilterPage());
+               }));
           }
 
           protected override void OnTabIndexPropertyChanged(int oldValue, int newValue)
