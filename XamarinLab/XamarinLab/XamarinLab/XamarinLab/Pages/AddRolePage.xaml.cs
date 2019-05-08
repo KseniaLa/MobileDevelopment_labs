@@ -17,14 +17,20 @@ namespace XamarinLab.Pages
 		public AddRolePage ()
 		{
 			InitializeComponent ();
-		}
+
+		     ToolbarItems.Add(new ToolbarItem
+		     {
+		          Text = "OK",
+		          Command = new Command(AddRole),
+		     });
+          }
 
 	     private void Picker_OnSelectedIndexChangedicker_SelectedIndexChanged(object sender, EventArgs e)
 	     {
 	          
 	     }
 
-	     private void AddButton_Clicked(object sender, EventArgs e)
+	     private async void AddRole()
 	     {
 	          var name = NameEntry.Text;
 	          var access = Picker.SelectedIndex;
@@ -40,6 +46,8 @@ namespace XamarinLab.Pages
 	          };
 
                RoleHelper.AddRole(role);
-	     }
+
+	          await Navigation.PopModalAsync();
+          }
 	}
 }

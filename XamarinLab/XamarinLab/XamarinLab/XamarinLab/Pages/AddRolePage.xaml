@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinLab.Pages.AddRolePage">
+             x:Class="XamarinLab.Pages.AddRolePage"
+             Title="Add Role">
+
     <ContentPage.Content>
         <StackLayout>
             <Entry x:Name="NameEntry" Placeholder="Role name"/>
@@ -13,7 +15,6 @@
                     <x:String>Can Create Roles</x:String>
                 </Picker.Items>
             </Picker>
-            <Button Text="Add Role" Clicked="AddButton_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

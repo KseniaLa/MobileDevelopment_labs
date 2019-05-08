@@ -22,7 +22,7 @@ namespace XamarinLab.Pages
 
           private async void untapItem(object sender, ItemTappedEventArgs e)
           {
-               await Navigation.PushModalAsync(new DetailPage(e.Item));
+               await Navigation.PushModalAsync(new NavigationPage(new DetailPage(e.Item)));
                ((ListView)sender).SelectedItem = null;
           }
 
@@ -35,7 +35,7 @@ namespace XamarinLab.Pages
 
           private async void Button_OnClicked(object sender, EventArgs e)
           {
-               await Navigation.PushModalAsync(new AddTaskPage());
+               await Navigation.PushModalAsync(new NavigationPage(new AddTaskPage()));
           }
      }
 }

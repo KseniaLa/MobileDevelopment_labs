@@ -4,8 +4,8 @@
              xmlns:views1="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
              x:Class="XamarinLab.Pages.ListPage"
              NavigationPage.HasNavigationBar="false">
-    <StackLayout>
-        <ListView x:Name="TaskList" ItemsSource="{Binding Tasks}" ItemTapped="untapItem" HasUnevenRows="True">
+    <AbsoluteLayout >
+        <ListView x:Name="TaskList" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" ItemsSource="{Binding Tasks}" ItemTapped="untapItem" HasUnevenRows="True" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -20,6 +20,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <views1:FloatingActionButton TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
-    </StackLayout>
+        <views1:FloatingActionButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                                     AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="End" Clicked="Button_OnClicked"/>
+    </AbsoluteLayout>
 </ContentPage>

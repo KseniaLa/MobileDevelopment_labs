@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinLab.Helpers;
+using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
 {
@@ -15,6 +17,48 @@ namespace XamarinLab.Pages
 		public AddTaskPage ()
 		{
 			InitializeComponent ();
+
+		     ToolbarItems.Add(new ToolbarItem
+		     {
+		          Text = "OK",
+		          Command = new Command(AddTask),
+		     });
+
+               ExpirationDatePicker.MinimumDate = DateTime.Now;
 		}
+
+	     private void Picker_OnSelectedIndexChanged(object sender, EventArgs e)
+	     {
+	          
+	     }
+
+	     private void DatePicker_OnDateSelectedatePicker_DateSelected(object sender, DateChangedEventArgs e)
+	     {
+	          
+	     }
+
+	     private async void AddTask()
+	     {
+	          var name = NameEntry.Text;
+	          var description = DescriptionEditor.Text;
+	          var priority = PriorityPicker.SelectedIndex;
+	          var date = ExpirationDatePicker.Date;
+	          var time = ExpirationTimePicker.Time;
+
+	          var expirationDateTime = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, time.Seconds);
+
+	          var task = new Task
+	          {
+	               CreatedDate = DateTime.Now,
+	               Description = description,
+	               Name = name,
+	               ExpirationDate = expirationDateTime,
+	               Priority = priority
+	          };
+
+               TaskHelper.AddTask(task);
+
+	          await Navigation.PopModalAsync();
+          }
 	}
 }

@@ -5,8 +5,8 @@
              x:Class="XamarinLab.Pages.RolesListPage"
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="RoleList" ItemsSource="{Binding Roles}" ItemTapped="TapItem" HasUnevenRows="True">
+        <AbsoluteLayout>
+            <ListView x:Name="RoleList" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" ItemsSource="{Binding Roles}" ItemTapped="TapItem" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -21,7 +21,8 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <views:FloatingActionButton TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
-        </StackLayout>
+            <views:FloatingActionButton x:Name="AddRoleButton" AbsoluteLayout.LayoutFlags="PositionProportional"
+                                        AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -19,6 +19,8 @@ namespace XamarinLab.Pages
           public RolesListPage ()
 		{
 			InitializeComponent ();
+
+		     //AddRoleButton.IsVisible = false;
 		}
 
 	     private void TapItem(object sender, ItemTappedEventArgs e)
@@ -28,7 +30,7 @@ namespace XamarinLab.Pages
 
 	     private async void Button_OnClicked(object sender, EventArgs e)
 	     {
-	          await Navigation.PushModalAsync(new AddRolePage());
+	          await Navigation.PushModalAsync(new NavigationPage(new AddRolePage()));
           }
 
 	     protected override async void OnAppearing()

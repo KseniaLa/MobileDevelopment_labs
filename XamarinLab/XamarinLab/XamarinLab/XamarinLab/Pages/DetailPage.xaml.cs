@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinLab.Enums;
 using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
@@ -17,34 +18,43 @@ namespace XamarinLab.Pages
 	     {
 	          InitializeComponent();
 
-	          var task = item as Task;
-
-               if (task == null) return;
-
-	          var stackLayout = new StackLayout();
-
-	          var label = new Label
+	          ToolbarItems.Add(new ToolbarItem
 	          {
-	               Text = task.Name
-	          };
+	               Text = "Close Task",
+	               Command = new Command(CloseTask),
+	          });
+               //NameLabel.IsVisible = false;
 
-	          var button = new Button
-	          {
-	               Text = "Ok",
-	               FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
-	               BorderWidth = 1,
-	               HorizontalOptions = LayoutOptions.Center,
-	               VerticalOptions = LayoutOptions.CenterAndExpand
-	          };
-	          button.Clicked += OnButtonClickedAsync;
-	          stackLayout.Children.Add(label);
-	          stackLayout.Children.Add(button);
-	          Content = stackLayout;
-	     }
+               if (!(item is Task task)) return;
 
-	     private async void OnButtonClickedAsync(object sender, EventArgs e)
+	          NameLabel.Text = task.Name;
+	          DescriptionEditor.Text = task.Description;
+	          PriorityLabel.Text = $"Priority: {GetPriorityTest(task.Priority)}";
+
+	          CreatedDateLabel.Text = task.CreatedDate.ToString("g");
+	          ExpirationDateLabel.Text = task.CreatedDate.ToString("g");
+          }
+
+          private string GetPriorityTest(int priority)
+          {
+               switch ((TaskLevels) priority)
+               {
+                    case TaskLevels.Low: return "Low";
+                    case TaskLevels.Medium: return "Medium";
+                    case TaskLevels.High: return "High";
+                    case TaskLevels.Critical: return "Critical";
+                    default: return "Undefined";
+               }
+          }
+
+          private async void OnButtonClickedAsync(object sender, EventArgs e)
 	     {
 	          await Navigation.PopModalAsync();
 	     }
-     }
+
+	     private void CloseTask()
+	     {
+	          
+	     }
+	}
 }

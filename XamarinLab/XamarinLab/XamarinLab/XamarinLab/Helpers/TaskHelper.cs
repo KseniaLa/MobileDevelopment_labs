@@ -25,8 +25,17 @@ namespace XamarinLab.Helpers
                     .OnceAsync<Task>()).Select(item => new Task
                     {
                          Name = item.Object.Name,
-                         Description = item.Object.Description
+                         Description = item.Object.Description,
+                         CreatedDate = item.Object.CreatedDate,
+                         ExpirationDate = item.Object.ExpirationDate,
+                         Priority = item.Object.Priority
+
                     }).ToList();
+          }
+
+          public static async void AddTask(Task task)
+          {
+               await Firebase.Child("Tasks").PostAsync(task);
           }
      }
 }

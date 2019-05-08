@@ -2,6 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinLab.Pages.DetailPage"
-             NavigationPage.HasNavigationBar="false">
-    
+             Title="Details">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label x:Name="NameLabel"/>
+                <Label x:Name="PriorityLabel"/>
+
+                <Label Text="Created Date"/>
+                <Label x:Name="CreatedDateLabel"/>
+
+                <Label Text="Expiration Date"/>
+                <Label x:Name="ExpirationDateLabel"/>
+                <Editor x:Name="DescriptionEditor" AutoSize="TextChanges" IsEnabled="False"/>
+
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
