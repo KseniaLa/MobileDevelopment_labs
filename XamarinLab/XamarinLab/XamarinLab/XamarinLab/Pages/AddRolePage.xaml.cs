@@ -41,14 +41,12 @@ namespace XamarinLab.Pages
 	          var name = NameEntry.Text;
 	          var access = Picker.SelectedIndex;
 
-	          var role = new Role
+               var role = new Role
 	          {
 	               Name = name,
 	               PriviledgeLevel = access,
 	               Id = Guid.NewGuid().ToString(),
-	               BlueColor = 20,
-	               GreenColor = 1,
-	               RedColor = 1
+	               Color = RoleColorBox.Color.ToString()
 	          };
 
                RoleHelper.AddRole(role);

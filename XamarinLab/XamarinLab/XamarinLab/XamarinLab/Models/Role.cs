@@ -11,8 +11,6 @@ namespace XamarinLab.Models
           public int PriviledgeLevel { get; set; }
           public string PriviledgeText { get; set; }
 
-          public int RedColor { get; set; }
-          public int GreenColor { get; set; }
-          public int BlueColor { get; set; }
+          public string Color { get; set; }
      }
 }

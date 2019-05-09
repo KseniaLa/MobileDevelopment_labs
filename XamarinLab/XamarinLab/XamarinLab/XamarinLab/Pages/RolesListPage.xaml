@@ -11,9 +11,13 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout>
-                                    <Label Text="{Binding Name}" FontSize="18" />
-                                    <Label Text="{Binding PriviledgeText}" />
+                                <StackLayout Margin ="3" Orientation="Horizontal">
+                                    <BoxView Color="{Binding Color}"/>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Name}" FontSize="18" />
+                                        <Label Text="{Binding PriviledgeText}" />
+                                    </StackLayout>
+
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>

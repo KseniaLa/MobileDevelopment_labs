@@ -11,5 +11,6 @@ namespace XamarinLab.Models
          public int Priority { get; set; }
          public DateTime CreatedDate { get; set; }
          public DateTime ExpirationDate { get; set; }
+         public string Color { get; set; }
     }
 }

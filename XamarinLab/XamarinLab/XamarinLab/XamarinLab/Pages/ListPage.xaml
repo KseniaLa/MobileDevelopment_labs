@@ -10,9 +10,14 @@
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <StackLayout>
-                                <Label Text="{Binding Name}" FontSize="18" />
-                                <Label Text="{Binding Description}" />
+                            <StackLayout Margin="3" Orientation="Horizontal">
+                                <BoxView Color="{Binding Color}"/>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
+                                    <Label Text="{Binding CreatedDate, StringFormat='Start Date: {0}'}" />
+                                    <Label Text="{Binding ExpirationDate, StringFormat='End Date: {0}'}" />
+                                </StackLayout>
+
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>

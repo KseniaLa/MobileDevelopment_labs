@@ -28,8 +28,8 @@ namespace XamarinLab.Helpers
                          Description = item.Object.Description,
                          CreatedDate = item.Object.CreatedDate,
                          ExpirationDate = item.Object.ExpirationDate,
-                         Priority = item.Object.Priority
-
+                         Priority = item.Object.Priority,
+                         Color = "Green"
                     }).ToList();
           }
 
