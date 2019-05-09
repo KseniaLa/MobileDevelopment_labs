@@ -7,37 +7,59 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinLab.Enums;
+using XamarinLab.Helpers;
+using XamarinLab.Models;
 using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DetailPage : ContentPage
-	{
-	     public DetailPage(object item)
-	     {
-	          InitializeComponent();
+     [XamlCompilation(XamlCompilationOptions.Compile)]
+     public partial class DetailPage : ContentPage
+     {
+          private Task _task;
 
-	          ToolbarItems.Add(new ToolbarItem
-	          {
-	               Text = "Close Task",
-	               Command = new Command(CloseTask),
-	          });
-               //NameLabel.IsVisible = false;
+          public DetailPage(object item)
+          {
+               InitializeComponent();
+
+               if (AppState.CurrentAccessLevel >= 2)
+               {
+                    ToolbarItems.Add(new ToolbarItem
+                    {
+                         Text = "Close Task",
+                         Command = new Command(CloseTask),
+                    });
+               }
 
                if (!(item is Task task)) return;
 
-	          NameLabel.Text = task.Name;
-	          DescriptionEditor.Text = task.Description;
-	          PriorityLabel.Text = $"Priority: {GetPriorityTest(task.Priority)}";
+               _task = task;
 
-	          CreatedDateLabel.Text = task.CreatedDate.ToString("g");
-	          ExpirationDateLabel.Text = task.CreatedDate.ToString("g");
+               if (AppState.Colors.ContainsValue(task.Color))
+               {
+                    RoleColorBox.Color = AppState.Colors.First(x => x.Value == task.Color).Key;
+               }
+               else
+               {
+                    RoleColorBox.Color = Color.AliceBlue;
+               }
+
+               NameLabel.Text = task.Name;
+               DescriptionEditor.Text = task.Description;
+               PriorityLabel.Text = $"Priority: {GetPriorityTest(task.Priority)}";
+               RoleLabel.Text = $"Role: {task.Role}";
+               CreatedDateLabel.Text = task.CreatedDate.ToString("g");
+               ExpirationDateLabel.Text = task.CreatedDate.ToString("g");
+
+               if (task.ExpirationDate < DateTime.Now)
+               {
+                    OutdatedLabel.IsVisible = true;
+               }
           }
 
           private string GetPriorityTest(int priority)
           {
-               switch ((TaskLevels) priority)
+               switch ((TaskLevels)priority)
                {
                     case TaskLevels.Low: return "Low";
                     case TaskLevels.Medium: return "Medium";
@@ -47,14 +69,13 @@ namespace XamarinLab.Pages
                }
           }
 
-          private async void OnButtonClickedAsync(object sender, EventArgs e)
-	     {
-	          await Navigation.PopModalAsync();
-	     }
+          private async void CloseTask()
+          {
+               TaskHelper.DeleteTask(_task.Id);
 
-	     private void CloseTask()
-	     {
-	          
-	     }
-	}
+               await DisplayAlert("Success", "Task was closed", "OK");
+
+               await Navigation.PopModalAsync();
+          }
+     }
 }

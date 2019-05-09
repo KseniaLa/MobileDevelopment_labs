@@ -17,7 +17,7 @@ namespace XamarinLab.Pages
 		{
 			InitializeComponent ();
                var stackLayout = new StackLayout();
-		     foreach (var color in _colors)
+		     foreach (var color in AppState.Colors)
 		     {
 		          var button = new Button
 		          {
@@ -34,7 +34,7 @@ namespace XamarinLab.Pages
 	     private async void OnButtonClicked(object sender, System.EventArgs e)
 	     {
 	          var button = (Button)sender;
-	          AppState.RoleColor = (button.BackgroundColor, _colors[button.BackgroundColor]);
+	          AppState.RoleColor = (button.BackgroundColor, AppState.Colors[button.BackgroundColor]);
 	          await Navigation.PopModalAsync();
 	     }
 

@@ -20,7 +20,11 @@ namespace XamarinLab.Pages
 		{
 			InitializeComponent ();
 
-		     //AddRoleButton.IsVisible = false;
+		     if (AppState.CurrentAccessLevel < 3)
+		     {
+                    AddRoleButton.IsVisible = false;
+		     }
+		     
 		}
 
 	     private void TapItem(object sender, ItemTappedEventArgs e)

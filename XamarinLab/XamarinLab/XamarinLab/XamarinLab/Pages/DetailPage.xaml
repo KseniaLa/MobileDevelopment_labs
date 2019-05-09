@@ -7,16 +7,18 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <BoxView x:Name="RoleColorBox"/>
                 <Label x:Name="NameLabel"/>
+                <Label x:Name="OutdatedLabel" Text="OUTDATED" TextColor="Red" IsVisible="False"/>
                 <Label x:Name="PriorityLabel"/>
-
+                <Label x:Name="RoleLabel"/>
                 <Label Text="Created Date"/>
                 <Label x:Name="CreatedDateLabel"/>
 
                 <Label Text="Expiration Date"/>
                 <Label x:Name="ExpirationDateLabel"/>
                 <Editor x:Name="DescriptionEditor" AutoSize="TextChanges" IsEnabled="False"/>
-
+                
             </StackLayout>
 
         </ScrollView>

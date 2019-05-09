@@ -49,17 +49,20 @@ namespace XamarinLab.Pages
 	          var time = ExpirationTimePicker.Time;
 
 	          var color = Roles[RolePicker.SelectedIndex].Color;
+	          var role = Roles[RolePicker.SelectedIndex].Name;
 
 	          var expirationDateTime = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, time.Seconds);
 
 	          var task = new Task
 	          {
+                    Id = Guid.NewGuid().ToString(),
 	               CreatedDate = DateTime.Now,
 	               Description = description,
 	               Name = name,
 	               ExpirationDate = expirationDateTime,
 	               Priority = priority,
-                    Color = color
+                    Color = color,
+                    Role = role
 	          };
 
                TaskHelper.AddTask(task);

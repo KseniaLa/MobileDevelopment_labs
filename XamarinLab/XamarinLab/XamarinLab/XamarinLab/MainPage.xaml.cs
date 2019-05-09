@@ -35,6 +35,7 @@ namespace XamarinLab
                if (user == null)
                {
                     await DisplayAlert("Error", "Invalid login or password", "OK");
+                    Loading.IsRunning = false;
                     return;
                }
 

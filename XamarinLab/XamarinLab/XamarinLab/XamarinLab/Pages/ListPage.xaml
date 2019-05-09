@@ -5,7 +5,7 @@
              x:Class="XamarinLab.Pages.ListPage"
              NavigationPage.HasNavigationBar="false">
     <AbsoluteLayout >
-        <ListView x:Name="TaskList" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" ItemsSource="{Binding Tasks}" ItemTapped="untapItem" HasUnevenRows="True" >
+        <ListView x:Name="TaskList" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" ItemsSource="{Binding Tasks}" ItemTapped="untapItem" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
