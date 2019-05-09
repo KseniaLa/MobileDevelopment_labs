@@ -24,6 +24,10 @@
                     </DatePicker>
                     <TimePicker x:Name="ExpirationTimePicker"></TimePicker>
                 </StackLayout>
+                <Picker x:Name="RolePicker" Title="Choose role"
+                        
+                        ItemsSource="{Binding Roles}"
+                        ItemDisplayBinding="{Binding Name}" />
 
                 <Editor x:Name="DescriptionEditor" Placeholder="Task description" AutoSize="TextChanges"></Editor>
 
