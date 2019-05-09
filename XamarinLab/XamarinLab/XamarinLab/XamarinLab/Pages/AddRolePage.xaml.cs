@@ -46,7 +46,7 @@ namespace XamarinLab.Pages
 	               Name = name,
 	               PriviledgeLevel = access,
 	               Id = Guid.NewGuid().ToString(),
-	               Color = RoleColorBox.Color.ToString()
+	               Color = AppState.RoleColor.colorName
 	          };
 
                RoleHelper.AddRole(role);
@@ -62,7 +62,7 @@ namespace XamarinLab.Pages
 	     protected override void OnAppearing()
 	     {
 	          base.OnAppearing();
-	          RoleColorBox.Color = AppState.RoleColor;
+	          RoleColorBox.Color = AppState.RoleColor.color;
 	     }
 	}
 }

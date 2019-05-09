@@ -30,7 +30,7 @@ namespace XamarinLab.Helpers
                          Id = item.Object.Id,
                          PriviledgeLevel = item.Object.PriviledgeLevel,
                          PriviledgeText = GetPriviledgeText(item.Object.PriviledgeLevel),
-                         Color = "Yellow"
+                         Color = item.Object.Color
                     }).ToList();
           }
 

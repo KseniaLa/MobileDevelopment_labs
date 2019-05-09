@@ -8,6 +8,6 @@ namespace XamarinLab.Models
      public static class AppState
      {
           public static User CurrentUser { get; set; }
-          public static Color RoleColor { get; set; }
+          public static (Color color, string colorName) RoleColor { get; set; }
      }
 }

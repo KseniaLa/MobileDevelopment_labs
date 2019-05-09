@@ -16,7 +16,7 @@ namespace XamarinLab
           public MainPage()
           {
                InitializeComponent();
-               AppState.RoleColor = Color.Green;
+               AppState.RoleColor = (Color.Green, "Green");
           }
 
           private async void OnLoginButtonClicked(object sender, System.EventArgs e)
