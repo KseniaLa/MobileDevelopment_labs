@@ -25,7 +25,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <views1:FloatingActionButton AbsoluteLayout.LayoutFlags="PositionProportional"
+        <views1:FloatingActionButton x:Name="AddTaskButton" AbsoluteLayout.LayoutFlags="PositionProportional"
                                      AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="End" Clicked="Button_OnClicked"/>
     </AbsoluteLayout>
 </ContentPage>

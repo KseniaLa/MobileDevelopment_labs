@@ -23,6 +23,14 @@ namespace XamarinLab
           {
                var login = LoginEntry.Text;
                var password = LoginEntry.Text;
+
+               if (login == "" || password == "")
+               {
+                    await DisplayAlert("Error", "Empty login or password", "OK");
+                    return;
+               }
+
+               Loading.IsRunning = true;
                var user = await UserHelper.GetUserByCredentials(login, password);
                if (user == null)
                {
@@ -30,13 +38,25 @@ namespace XamarinLab
                     return;
                }
 
+               var role = await RoleHelper.GetRoleById(user.RoleId);
+               
                AppState.CurrentUser = user;
+               AppState.CurrentAccessLevel = role?.PriviledgeLevel ?? 0;
+
+               Loading.IsRunning = false;
                await Navigation.PushAsync(new TabsPage());
           }
 
           private async void OnRegisterButtonClicked(object sender, System.EventArgs e)
           {
                await Navigation.PushAsync(new SignUpPage());
+          }
+
+          protected override void OnAppearing()
+          {
+               base.OnAppearing();
+               AppState.CurrentUser = null;
+               AppState.CurrentAccessLevel = 0;
           }
      }
 }

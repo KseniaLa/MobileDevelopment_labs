@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinLab.Helpers;
+using XamarinLab.Models;
 using Task = XamarinLab.Models.Task;
 
 namespace XamarinLab.Pages
@@ -18,6 +19,11 @@ namespace XamarinLab.Pages
           public ListPage()
           {
                InitializeComponent();
+
+               if (AppState.CurrentAccessLevel < 1)
+               {
+                    AddTaskButton.IsVisible = false;
+               }
           }
 
           private async void untapItem(object sender, ItemTappedEventArgs e)

@@ -2,13 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinLab"
-             x:Class="XamarinLab.MainPage">
+             x:Class="XamarinLab.MainPage"
+             Title="Authorization">
 
-    <StackLayout>
-        <Entry x:Name="LoginEntry" Placeholder="login" Text="ksenia"/>
-        <Entry x:Name="PasswordEntry" Placeholder="password" IsPassword="True" Text="ksenia"/>
-        <Button Text="Sign In" Clicked="OnLoginButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-        <Button Text="Sign Up" Clicked="OnRegisterButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <ScrollView>
+        <AbsoluteLayout BackgroundColor="SkyBlue">
+            <Frame AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1" AbsoluteLayout.LayoutFlags="PositionProportional" HasShadow="True" CornerRadius="15">
+                <StackLayout WidthRequest="150">
+                    <Entry x:Name="LoginEntry" Placeholder="login" Text="ksenia"/>
+                    <Entry x:Name="PasswordEntry" Placeholder="password" IsPassword="True" Text="ksenia"/>
+                    <Button Text="Sign In" Clicked="OnLoginButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                    <Button Text="Sign Up" Clicked="OnRegisterButtonClicked" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+
+            </Frame>
+
+            <ActivityIndicator x:Name="Loading" Margin="5" Color="White" IsRunning="False" AbsoluteLayout.LayoutBounds=".5,0,100,40" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        </AbsoluteLayout>
+    </ScrollView>
 
 </ContentPage>

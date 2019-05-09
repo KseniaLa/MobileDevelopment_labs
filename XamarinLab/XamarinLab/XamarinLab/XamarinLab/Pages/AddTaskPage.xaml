@@ -5,7 +5,7 @@
              Title="Add Task">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout Margin="5">
                 <Entry x:Name="NameEntry" Placeholder="Task name"/>
                 
                 <Picker x:Name="PriorityPicker" SelectedIndexChanged="Picker_OnSelectedIndexChanged" Title="Task priority">

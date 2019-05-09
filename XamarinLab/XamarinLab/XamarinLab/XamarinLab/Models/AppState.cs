@@ -9,5 +9,6 @@ namespace XamarinLab.Models
      {
           public static User CurrentUser { get; set; }
           public static (Color color, string colorName) RoleColor { get; set; }
+          public static int CurrentAccessLevel { get; set; }
      }
 }

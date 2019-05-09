@@ -34,6 +34,18 @@ namespace XamarinLab.Helpers
                     }).ToList();
           }
 
+          public static async Task<Role> GetRoleById(string id)
+          {
+               return (await Firebase
+                    .Child("Roles")
+                    .OnceAsync<Role>()).Select(item => new Role
+                    {
+                         Name = item.Object.Name,
+                         Id = item.Object.Id,
+                         PriviledgeLevel = item.Object.PriviledgeLevel,
+                    }).FirstOrDefault(x => x.Id == id);
+          }
+
           public static async void AddRole(Role role)
           {
                await Firebase.Child("Roles").PostAsync(role);
@@ -41,7 +53,7 @@ namespace XamarinLab.Helpers
 
           private static string GetPriviledgeText(int id)
           {
-               switch ((AccessLevels) id)
+               switch ((AccessLevels)id)
                {
                     case AccessLevels.ReadOnly:
                          return "Read Only";

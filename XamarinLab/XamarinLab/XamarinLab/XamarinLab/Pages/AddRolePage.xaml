@@ -6,8 +6,11 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <BoxView x:Name="RoleColorBox" VerticalOptions="Start" />
-            <Button Text="Choose role color" Clicked="ChooseColor_Clicked"></Button>
+            <StackLayout Orientation="Horizontal">
+                <BoxView x:Name="RoleColorBox" VerticalOptions="Start" />
+                <Button Text="Choose role color" Clicked="ChooseColor_Clicked"></Button>
+            </StackLayout>
+
 
             <Entry x:Name="NameEntry" Placeholder="Role name"/>
             <Picker x:Name="Picker" SelectedIndexChanged="Picker_OnSelectedIndexChangedicker_SelectedIndexChanged" Title="Choose Access Level">
