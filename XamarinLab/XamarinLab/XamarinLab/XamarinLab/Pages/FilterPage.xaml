@@ -4,10 +4,23 @@
              x:Class="XamarinLab.Pages.FilterPage"
              Title="Tasks Filter">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Filters"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="10">
+            <Picker x:Name="PriorityPicker" SelectedIndexChanged="PriorityPicker_OnSelectedIndexChanged" Title="Task priority">
+                <Picker.Items>
+                    <x:String>Low</x:String>
+                    <x:String>Medium</x:String>
+                    <x:String>High</x:String>
+                    <x:String>Critical</x:String>
+                </Picker.Items>
+            </Picker>
+            <Picker x:Name="RolePicker" Title="Choose role" SelectedIndexChanged="RolePicker_OnSelectedIndexChanged"
+                        
+                    ItemsSource="{Binding Roles}"
+                    ItemDisplayBinding="{Binding Name}" />
+            <DatePicker x:Name="ExpirationDatePicker" Format="D" DateSelected="DatePicker_OnDateSelected">
+                <DatePicker.MaximumDate>1/01/2050</DatePicker.MaximumDate>
+                </DatePicker>
+            <Button Text="Delete filter" Clicked="DeleteFilter_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -31,7 +31,8 @@ namespace XamarinLab.Helpers
                          ExpirationDate = item.Object.ExpirationDate,
                          Priority = item.Object.Priority,
                          Color = item.Object.Color,
-                         Role = item.Object.Role
+                         Role = item.Object.Role,
+                         RoleId = item.Object.RoleId
                     }).ToList();
           }
 

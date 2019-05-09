@@ -5,10 +5,10 @@
              Title="Add Task">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Margin="5">
-                <Entry x:Name="NameEntry" Placeholder="Task name"/>
-                
-                <Picker x:Name="PriorityPicker" SelectedIndexChanged="Picker_OnSelectedIndexChanged" Title="Task priority">
+            <StackLayout Margin="10">
+                <Entry x:Name="NameEntry" Placeholder="Task name" FontSize="Medium"/>
+
+                <Picker x:Name="PriorityPicker" FontSize="Medium" SelectedIndexChanged="Picker_OnSelectedIndexChanged" Title="Task priority">
                     <Picker.Items>
                         <x:String>Low</x:String>
                         <x:String>Medium</x:String>
@@ -16,22 +16,18 @@
                         <x:String>Critical</x:String>
                     </Picker.Items>
                 </Picker>
-                <Label Text="Set expiration date and time"/>
-                <StackLayout Orientation="Horizontal">
+                <Label Text="Set expiration date and time" HorizontalOptions="CenterAndExpand"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
 
-                    <DatePicker x:Name="ExpirationDatePicker" Format="D" DateSelected="DatePicker_OnDateSelectedatePicker_DateSelected">
+                    <DatePicker x:Name="ExpirationDatePicker" Format="D" HorizontalOptions="CenterAndExpand" DateSelected="DatePicker_OnDateSelectedatePicker_DateSelected">
                         <DatePicker.MaximumDate>1/01/2050</DatePicker.MaximumDate>
                     </DatePicker>
                     <TimePicker x:Name="ExpirationTimePicker"></TimePicker>
                 </StackLayout>
-                <Picker x:Name="RolePicker" Title="Choose role"
-                        
-                        ItemsSource="{Binding Roles}"
-                        ItemDisplayBinding="{Binding Name}" />
+                <Picker x:Name="RolePicker" FontSize="Medium" Title="Choose role" ItemsSource="{Binding Roles}" ItemDisplayBinding="{Binding Name}" />
+                <Editor x:Name="DescriptionEditor" FontSize="Medium" Placeholder="Task description" AutoSize="TextChanges"></Editor>
 
-                <Editor x:Name="DescriptionEditor" Placeholder="Task description" AutoSize="TextChanges"></Editor>
 
-                
 
             </StackLayout>
 

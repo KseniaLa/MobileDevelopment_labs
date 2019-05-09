@@ -14,5 +14,6 @@ namespace XamarinLab.Models
          public DateTime ExpirationDate { get; set; }
          public string Color { get; set; }
          public string Role { get; set; }
+         public string RoleId { get; set; }
     }
 }

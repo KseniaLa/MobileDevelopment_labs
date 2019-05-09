@@ -6,8 +6,10 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             BarBackgroundColor="Gainsboro"
             BarTextColor="White"
+            NavigationPage.HasBackButton="False"
             android:TabbedPage.BarItemColor="Gray"
             android:TabbedPage.BarSelectedItemColor="Red"
+            
             >
 
 </TabbedPage>

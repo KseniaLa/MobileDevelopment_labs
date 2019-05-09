@@ -46,8 +46,8 @@ namespace XamarinLab.Pages
 
                NameLabel.Text = task.Name;
                DescriptionEditor.Text = task.Description;
-               PriorityLabel.Text = $"Priority: {GetPriorityTest(task.Priority)}";
-               RoleLabel.Text = $"Role: {task.Role}";
+               PriorityLabel.Text = $"{GetPriorityTest(task.Priority)}";
+               RoleLabel.Text = $"{task.Role}";
                CreatedDateLabel.Text = task.CreatedDate.ToString("g");
                ExpirationDateLabel.Text = task.CreatedDate.ToString("g");
 

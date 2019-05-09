@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinLab.Enums;
 using XamarinLab.Helpers;
 using XamarinLab.Models;
 using Task = XamarinLab.Models.Task;
@@ -35,7 +36,37 @@ namespace XamarinLab.Pages
           protected override async void OnAppearing()
           {
                base.OnAppearing();
-               Tasks = await TaskHelper.GetAllTasks();
+               var tasks = await TaskHelper.GetAllTasks();
+
+               if (AppState.FilterByPriority)
+               {
+                    tasks = tasks.Where(t => t.Priority == AppState.Priority).ToList();
+               }
+
+               if (AppState.FilterByRole)
+               {
+                    tasks = tasks.Where(t => t.RoleId == AppState.RoleId).ToList();
+               }
+
+               if (AppState.FilterByDate)
+               {
+                    tasks = tasks.Where(t => t.ExpirationDate.Date == AppState.Date.Date).ToList();
+               }
+
+               var critical = tasks.Where(t => t.Priority == (int)TaskLevels.Critical).ToList();
+               var other = tasks.Where(t => t.Priority < (int)TaskLevels.Critical).ToList();
+               other.Sort((a, b) =>
+               {
+                    if (a.CreatedDate > b.CreatedDate)
+                         return 1;
+                    if (a.CreatedDate < b.CreatedDate)
+                         return -1;
+                    return 0;
+               });
+
+               critical.AddRange(other);
+
+               Tasks = critical;
                TaskList.ItemsSource = Tasks;
           }
 

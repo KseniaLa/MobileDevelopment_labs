@@ -5,15 +5,15 @@
              Title="Add Role">
 
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <BoxView x:Name="RoleColorBox" VerticalOptions="Start" />
-                <Button Text="Choose role color" Clicked="ChooseColor_Clicked"></Button>
+        <StackLayout Margin="10">
+            <StackLayout>
+                <BoxView x:Name="RoleColorBox" VerticalOptions="Start" HorizontalOptions="Center" WidthRequest="50" HeightRequest="50"/>
+                <Button Text="Choose role color" Clicked="ChooseColor_Clicked" HorizontalOptions="CenterAndExpand"></Button>
             </StackLayout>
 
 
-            <Entry x:Name="NameEntry" Placeholder="Role name"/>
-            <Picker x:Name="Picker" SelectedIndexChanged="Picker_OnSelectedIndexChangedicker_SelectedIndexChanged" Title="Choose Access Level">
+            <Entry x:Name="NameEntry" Placeholder="Role name" FontSize="Medium"/>
+            <Picker x:Name="Picker" FontSize="Medium" SelectedIndexChanged="Picker_OnSelectedIndexChangedicker_SelectedIndexChanged" Title="Choose Access Level">
                 <Picker.Items>
                     <x:String>Read Only</x:String>
                     <x:String>Can Create Tasks</x:String>

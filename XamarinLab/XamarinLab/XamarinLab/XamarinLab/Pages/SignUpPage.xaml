@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinLab.Pages.SignUpPage">
+             x:Class="XamarinLab.Pages.SignUpPage"
+             Title="Register">
     <ContentPage.Content>
-        <StackLayout>
-            <Entry x:Name="LoginEntry" Placeholder="Login"/>
-            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"></Entry>
+        <StackLayout Margin="10">
+            <Entry x:Name="LoginEntry" Placeholder="Login" FontSize="Medium"/>
+            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" FontSize="Medium"></Entry>
 
             <Picker x:Name="RolePicker" Title="Choose role"
                     SelectedIndexChanged="Picker_OnSelectedIndexChanged_SelectedIndexChanged"
                     ItemsSource="{Binding Roles}"
-                    ItemDisplayBinding="{Binding Name}" />
-
-            <Button Text="Sign Up" Clicked="RegisterButton_Clicked"></Button>
+                    ItemDisplayBinding="{Binding Name}" FontSize="Medium"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

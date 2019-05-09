@@ -16,6 +16,8 @@ namespace XamarinLab.Pages
           {
                InitializeComponent();
 
+               ToolbarItems.Add(new ToolbarItem("Log Out", null, OnBackPressed));
+
                Title = "Tasks";
 
                var listPage = new NavigationPage(new ListPage())
@@ -43,6 +45,11 @@ namespace XamarinLab.Pages
                base.OnTabIndexPropertyChanged(oldValue, newValue);
                var titles = new[] {"Tasks", "Roles", "Settings"};
                Title = titles[newValue];
+          }
+
+          protected async void OnBackPressed()
+          {
+               await Navigation.PopToRootAsync(true);
           }
      }
 }

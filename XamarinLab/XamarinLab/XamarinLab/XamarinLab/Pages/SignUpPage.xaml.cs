@@ -19,24 +19,37 @@ namespace XamarinLab.Pages
 		public SignUpPage ()
 		{
 			InitializeComponent ();
-		}
+
+		     ToolbarItems.Add(new ToolbarItem
+		     {
+		          Text = "Sign Up",
+		          Command = new Command(RegisterButton_Clicked),
+		     });
+          }
 
 	     private void Picker_OnSelectedIndexChanged_SelectedIndexChanged(object sender, EventArgs e)
 	     {
 	          
 	     }
 
-	     private void RegisterButton_Clicked(object sender, EventArgs e)
+	     private async void RegisterButton_Clicked()
 	     {
-	          var user = new User
+	          var role = Roles[RolePicker.SelectedIndex];
+
+               var user = new User
 	          {
 	               Login = LoginEntry.Text,
 	               Password = PasswordEntry.Text,
-	               RoleId = Roles[RolePicker.SelectedIndex].Id
+	               RoleId = role.Id
 	          };
 
                UserHelper.AddUser(user);
-	     }
+
+	          AppState.CurrentUser = user;
+	          AppState.CurrentAccessLevel = role.PriviledgeLevel;
+
+	          await Navigation.PushAsync(new TabsPage());
+          }
 
 	     protected override async void OnAppearing()
 	     {

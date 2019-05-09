@@ -2,18 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views1="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             xmlns:converters="clr-namespace:XamarinLab.Converters;assembly=XamarinLab"
              x:Class="XamarinLab.Pages.ListPage"
              NavigationPage.HasNavigationBar="false">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TaskPriorityConverter x:Key="TaskPriority" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <AbsoluteLayout >
         <ListView x:Name="TaskList" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" ItemsSource="{Binding Tasks}" ItemTapped="untapItem" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <StackLayout Margin="3" Orientation="Horizontal">
+                            <StackLayout Margin="3" Orientation="Horizontal" BackgroundColor="{Binding Priority, Converter={StaticResource TaskPriority}}">
                                 <BoxView Color="{Binding Color}"/>
                                 <StackLayout Orientation="Vertical">
-                                    <Label Text="{Binding Name}" FontSize="18" TextColor="Black"/>
+                                    <Label Text="{Binding Name}" FontSize="Medium" TextColor="Black"/>
                                     <Label Text="{Binding CreatedDate, StringFormat='Start Date: {0}'}" />
                                     <Label Text="{Binding ExpirationDate, StringFormat='End Date: {0}'}" />
                                 </StackLayout>
@@ -26,6 +34,6 @@
         </ListView>
 
         <views1:FloatingActionButton x:Name="AddTaskButton" AbsoluteLayout.LayoutFlags="PositionProportional"
-                                     AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="End" Clicked="Button_OnClicked"/>
+                                     AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" ButtonColor="Crimson" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="End" Clicked="Button_OnClicked"/>
     </AbsoluteLayout>
 </ContentPage>

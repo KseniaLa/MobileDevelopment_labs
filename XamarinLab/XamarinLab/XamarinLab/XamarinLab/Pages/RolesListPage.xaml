@@ -14,8 +14,8 @@
                                 <StackLayout Margin ="3" Orientation="Horizontal">
                                     <BoxView Color="{Binding Color}"/>
                                     <StackLayout Orientation="Vertical">
-                                        <Label Text="{Binding Name}" FontSize="18" />
-                                        <Label Text="{Binding PriviledgeText}" />
+                                        <Label Text="{Binding Name}" FontSize="Medium" TextColor="Black"/>
+                                        <Label Text="{Binding PriviledgeText}" FontSize="Small" />
                                     </StackLayout>
 
                                 </StackLayout>
@@ -26,7 +26,7 @@
             </ListView>
 
             <views:FloatingActionButton x:Name="AddRoleButton" AbsoluteLayout.LayoutFlags="PositionProportional"
-                                        AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
+                                        AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize" TextColor="White" ButtonColor="Crimson" WidthRequest="90" HeightRequest="100" Image="ic_action_add.png" HorizontalOptions="End" VerticalOptions="CenterAndExpand" Clicked="Button_OnClicked"/>
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

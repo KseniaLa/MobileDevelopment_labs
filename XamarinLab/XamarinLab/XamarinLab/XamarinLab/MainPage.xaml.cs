@@ -58,6 +58,10 @@ namespace XamarinLab
                base.OnAppearing();
                AppState.CurrentUser = null;
                AppState.CurrentAccessLevel = 0;
+
+               AppState.FilterByPriority = false;
+               AppState.FilterByDate = false;
+               AppState.FilterByRole = false;
           }
      }
 }
