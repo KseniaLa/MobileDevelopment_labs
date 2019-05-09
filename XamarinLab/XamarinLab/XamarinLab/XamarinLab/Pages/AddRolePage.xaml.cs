@@ -14,7 +14,11 @@ namespace XamarinLab.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddRolePage : ContentPage
 	{
-		public AddRolePage ()
+	     private double _red = 30;
+	     private double _green = 0;
+	     private double _blue = 0;
+
+          public AddRolePage ()
 		{
 			InitializeComponent ();
 
@@ -23,6 +27,8 @@ namespace XamarinLab.Pages
 		          Text = "OK",
 		          Command = new Command(AddRole),
 		     });
+
+               RoleColorBox.Color = new Color(_red, _green, _blue);
           }
 
 	     private void Picker_OnSelectedIndexChangedicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,5 +55,16 @@ namespace XamarinLab.Pages
 
 	          await Navigation.PopModalAsync();
           }
+
+	     private async void ChooseColor_Clicked(object sender, EventArgs e)
+	     {
+	          await Navigation.PushModalAsync(new ColorPage());
+	     }
+
+	     protected override void OnAppearing()
+	     {
+	          base.OnAppearing();
+	          RoleColorBox.Color = AppState.RoleColor;
+	     }
 	}
 }

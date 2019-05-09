@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using XamarinLab.Helpers;
 using XamarinLab.Models;
 using XamarinLab.Pages;
+using Color = System.Drawing.Color;
 
 namespace XamarinLab
 {
@@ -15,7 +16,7 @@ namespace XamarinLab
           public MainPage()
           {
                InitializeComponent();
-               
+               AppState.RoleColor = Color.Green;
           }
 
           private async void OnLoginButtonClicked(object sender, System.EventArgs e)
