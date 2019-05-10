@@ -41,6 +41,12 @@ namespace XamarinLab.Pages
 	          var name = NameEntry.Text;
 	          var access = Picker.SelectedIndex;
 
+	          if (name == "" || access == -1)
+	          {
+	               await DisplayAlert("Error", "Not all values set", "OK");
+	               return;
+               }
+
                var role = new Role
 	          {
 	               Name = name,

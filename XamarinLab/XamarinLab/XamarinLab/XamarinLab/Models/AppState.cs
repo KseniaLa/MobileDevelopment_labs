@@ -30,5 +30,10 @@ namespace XamarinLab.Models
                {Xamarin.Forms.Color.HotPink, "HotPink"},
                {Xamarin.Forms.Color.Orange, "Orange"}
           };
+
+          public static int SettingId = 1;
+          public static string CriticalCell { get; set; }
+          public static string NormalCell { get; set; }
+          public static bool IsDarkTheme { get; set; }
      }
 }

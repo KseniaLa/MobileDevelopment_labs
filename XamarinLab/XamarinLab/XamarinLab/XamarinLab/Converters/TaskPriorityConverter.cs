@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
+using XamarinLab.Models;
 
 namespace XamarinLab.Converters
 {
@@ -13,10 +14,10 @@ namespace XamarinLab.Converters
               var priority = (int) value;
               if (priority == 3)
               {
-                   return "LightPink";
+                   return AppState.CriticalCell;
               }
 
-              return "White";
+              return AppState.NormalCell;
          }
 
          public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

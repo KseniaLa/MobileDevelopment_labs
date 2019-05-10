@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Realms;
 using Xamarin.Forms;
 using XamarinLab.Helpers;
 using XamarinLab.Models;
@@ -62,6 +63,32 @@ namespace XamarinLab
                AppState.FilterByPriority = false;
                AppState.FilterByDate = false;
                AppState.FilterByRole = false;
+
+               var realmDb = Realm.GetInstance();
+               var settings = realmDb.All<Setting>().FirstOrDefault(b => b.SettingId == AppState.SettingId);
+
+               if (settings == null)
+               {
+                    AppState.CriticalCell = "LightPink";
+                    AppState.NormalCell = "White";
+                    AppState.IsDarkTheme = false;
+               }
+               else
+               {
+                    if (settings.IsDarkTheme)
+                    {
+                         AppState.CriticalCell = "Tan";
+                         AppState.NormalCell = "Ivory";
+                         AppState.IsDarkTheme = true;
+                    }
+                    else
+                    {
+                         AppState.CriticalCell = "LightPink";
+                         AppState.NormalCell = "White";
+                         AppState.IsDarkTheme = false;
+                    }
+               }
+               
           }
      }
 }

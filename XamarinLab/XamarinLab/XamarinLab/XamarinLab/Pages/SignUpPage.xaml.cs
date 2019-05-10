@@ -34,7 +34,13 @@ namespace XamarinLab.Pages
 
 	     private async void RegisterButton_Clicked()
 	     {
-	          var role = Roles[RolePicker.SelectedIndex];
+	          if (LoginEntry.Text == "" || PasswordEntry.Text == "" || RolePicker.SelectedIndex == -1)
+	          {
+	               await DisplayAlert("Error", "Not all values set", "OK");
+	               return;
+	          }
+
+               var role = Roles[RolePicker.SelectedIndex];
 
                var user = new User
 	          {
